@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    include header.jade
+    include sidebar.jade
+        .container-fluid
+            .row
+                .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    table.table.table-sm.table-hover
+                        thead
+                            tr
+                                th #
+                                th PC-Number
+                                th User
+                                th PL
+                                th.hidden-xs-down Feature
+                                th Connect
+                        tbody
+                            each user, i in userlist
+                                - if (user.project == project)
+                                tr
+                                    th(scope='row') 1
+                                    td #{user.a_number}
+                                    td #{user.user}
+                                    td
+                                        if user.pl == "true"
+                                            input(type="checkbox" onclick="return false")
+                                        else
+                                            input(type="checkbox" onclick="return true")
+                                    td.hidden-xs-down
+                                        .dropdown
+                                            button#dropdownMenu1.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                                | Feature
+                                            .dropdown-menu(aria-labelledby='dropdownMenu1')
+                                                each d, i in user.features
+                                                    a.dropdown-item(href='#') #{d}
+                                    td
+                                        button Connect
+
+
+                script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+                script(src='javascripts/bootstrap.min.js')
+                    // Just to make our placeholder images work. Don't actually copy the next line!
+                script(src='javascripts/vendor/holder.min.js')
+                    // IE10 viewport hack for Surface/desktop Windows 8 bug
+                script(src='javascripts/ie10-viewport-bug-workaround.js')

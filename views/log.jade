@@ -1,0 +1,18 @@
+table#example.table.table-striped.table-bordered
+    thead
+        tr
+            th #
+            th Time
+            th Type
+            th Level
+            th Thread
+            th Message
+    tbody
+        each log in logs
+            tr
+                th(scope='row')
+                td #{log.time}
+                td #{log.type}
+                td #{log.loggerLvl}
+                td #{log.thread}
+                td #{log.message}

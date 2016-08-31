@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.text-muted-realoaded {
+  font-size: 14px;
+}
+
+input:disabled {
+  background: gainsboro;
+}
+input[value]:disabled {
+  color: whitesmoke;
+}
