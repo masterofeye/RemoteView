@@ -4,8 +4,62 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'RemoteView', user: req.session.user, success: req.session.success, error: req.session.errors });
+  /*All errrors must be cleared after showing*/
+  req.session.errors = null;
 });
+
+router.post("/submit", function(req,res,next){
+
+  //Check validity
+  if(!req.body.password)
+  {
+    res.redirect("/");
+    req.session.success = false;
+    return;
+  }
+
+  req.check("username", "Invalid Username").isUser(req.body.password);
+  req.check("password", "Invalid password").isLength({min:4});
+  console.log("VILIDATE FERTIG");
+
+  req.asyncValidationErrors().then(function() {
+    var user =req.body.username;
+    if(user)
+    {
+      req.session.user = user;
+      req.session.success = true;
+    }
+  }).then(function()
+  {
+    var users = req.db.get('users');
+    users.find({user : req.session.user},{}, function(e,docs){
+      if(e)
+      {
+        req.session.role = undefined;
+      }
+      else
+      {
+        req.session.role = docs[0].role;
+      }
+      res.redirect("/")
+    });
+
+  }).catch(function(errors) {
+    if(errors) {
+      req.session.errors = errors;
+      res.redirect("/")
+      }
+  });
+
+});
+
+router.get("/logout", function(req,res,next){
+  req.session.success = false;
+  res.redirect("/")
+});
+
+
 
 router.get('/daimler', function(req, res, next){
   var db = req.db;
@@ -37,7 +91,7 @@ router.get('/daimler', function(req, res, next){
   collection.find({},{},function(e,docs){
     collectionLogs.find({},{},function(e,logs) {
       collectionusers.find({},{},function(e,user) {
-        res.render('daimler', {
+        res.render('daimler', {user: req.session.user, success: req.session.success, error: req.session.errors,
           "logs" : logs,
           "users" : user,
           "userlist": docs, /*komplete remoteworkstation Liste*/
@@ -111,6 +165,10 @@ router.get('/remote', function(req, res, next){
         collectionusers.find({},{},function(e,user) {
           req.a_number = req.query.a_number;
           res.render('remote', {
+            user: req.session.user,
+            success: req.session.success,
+            error: req.session.errors,
+            role: req.session.role,
             "ws" : req.ws,
             "logs" : logs,
             "users" : user,

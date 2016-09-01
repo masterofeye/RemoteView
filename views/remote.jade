@@ -4,7 +4,12 @@ block content
     include header.jade
     include sidebar.jade
     .container-fluid
-        - if (remote.length)
+        - if (!success)
+            .row
+                .col-sm-3.col-sm-offset-0.col-md-4.col-md-offset-2
+                    .client
+                        h1 Please login first.
+        - else if (remote.length)
             .row
                 .col-xl-3.col-lg-offset-2
                     .cliente
@@ -35,46 +40,47 @@ block content
                         .row
                             .col-sm-5.col-md-5.col-lg-7 RemoteBox Hardwareversion:
                             .col-sm-5.col-md-2 #{remote[0].hw.hw_version}
-            .row
-                .col-xl-7.col-lg-offset-2
-                    .cliente
-                        h3 Admin
-                            .container-fluid
-                                .row
-                                    .col-xs-2.col-sm-2.col-md-2
-                                        label.form-control(style="width:150px") Logout User:
-                                    .col-sm-2
-                                        button.btn.btn-default.btn-md(type='button' style="width:150px") LogOut
-                                    .col-sm-2
-                                        label.form-control(style="width:150px")  Shutdown PC:
-                                    .col-sm-2
-                                        button.btn.btn-default.btn-md(type='button' style="width:150px") Shutdown
-                                    .col-sm-2
-                                        label.form-control(style="width:150px")  Restart PC:
-                                    .col-sm-2
-                                        button.btn.btn-default.btn-md(type='button' style="width:150px") Restart
-                                .row
-                                    .col-sm-2
-                                        label.form-control(style="width:150px")  Status RW:
-                                    .col-sm-2(style="margin-top: 2px;")
-                                        //Hier wird der Status des PC's gesetzt. Es wird sehr umständlich geprüft welcher status nun als selected angezeigt werden muss
-                                        select#stateOfRemoteWorkstation.form-control(style="width:150px" onchange="window.location.href=this.value")
-                                            if(remote[0].state == "Defect")
-                                                option(value="/#{remote[0]._id}/Defect/edit" selected) Defect
-                                            else
-                                                option(value="/#{remote[0]._id}/Defect/edit") Defect
-                                            if(remote[0].state == "On")
-                                                option(value="/#{remote[0]._id}/On/edit" selected) On
-                                            else
-                                                option(value="/#{remote[0]._id}/On/edit") On
-                                            if(remote[0].state == "Offline")
-                                                option(value="/#{remote[0]._id}/Offline/edit" selected) Offline
-                                            else
-                                                option(value="/#{remote[0]._id}/Offline/edit") Offline
-                                            if(remote[0].state == "Maintance")
-                                                option(value="/#{remote[0]._id}/Maintance/edit" selected) Maintance
-                                            else
-                                                option(value="/#{remote[0]._id}/Maintance/edit") Maintance
+            - if(role == "admin")
+                .row
+                    .col-xl-7.col-lg-offset-2
+                        .cliente
+                            h3 Admin
+                                .container-fluid
+                                    .row
+                                        .col-xs-2.col-sm-2.col-md-2
+                                            label.form-control(style="width:150px") Logout User:
+                                        .col-sm-2
+                                            button.btn.btn-default.btn-md(type='button' style="width:150px") LogOut
+                                        .col-sm-2
+                                            label.form-control(style="width:150px")  Shutdown PC:
+                                        .col-sm-2
+                                            button.btn.btn-default.btn-md(type='button' style="width:150px") Shutdown
+                                        .col-sm-2
+                                            label.form-control(style="width:150px")  Restart PC:
+                                        .col-sm-2
+                                            button.btn.btn-default.btn-md(type='button' style="width:150px") Restart
+                                    .row
+                                        .col-sm-2
+                                            label.form-control(style="width:150px")  Status RW:
+                                        .col-sm-2(style="margin-top: 2px;")
+                                            //Hier wird der Status des PC's gesetzt. Es wird sehr umständlich geprüft welcher status nun als selected angezeigt werden muss
+                                            select#stateOfRemoteWorkstation.form-control(style="width:150px" onchange="window.location.href=this.value")
+                                                if(remote[0].state == "Defect")
+                                                    option(value="/#{remote[0]._id}/Defect/edit" selected) Defect
+                                                else
+                                                    option(value="/#{remote[0]._id}/Defect/edit") Defect
+                                                if(remote[0].state == "On")
+                                                    option(value="/#{remote[0]._id}/On/edit" selected) On
+                                                else
+                                                    option(value="/#{remote[0]._id}/On/edit") On
+                                                if(remote[0].state == "Offline")
+                                                    option(value="/#{remote[0]._id}/Offline/edit" selected) Offline
+                                                else
+                                                    option(value="/#{remote[0]._id}/Offline/edit") Offline
+                                                if(remote[0].state == "Maintance")
+                                                    option(value="/#{remote[0]._id}/Maintance/edit" selected) Maintance
+                                                else
+                                                    option(value="/#{remote[0]._id}/Maintance/edit") Maintance
 
             .row
                 .col-xl-7.col-lg-offset-2
@@ -129,7 +135,7 @@ block content
             .row
                 .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
                     include log.jade
-        -else
+        - else
             .row
                 .col-sm-3.col-sm-offset-0.col-md-4.col-md-offset-2
                     .client "No entry available"

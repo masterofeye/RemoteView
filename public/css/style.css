@@ -17,3 +17,8 @@ input:disabled {
 input[value]:disabled {
   color: whitesmoke;
 }
+
+.username {
+  margin-top: 7px;
+  margin-left:10px;
+}

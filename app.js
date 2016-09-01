@@ -6,6 +6,12 @@ var express = require('express');
 var session = require('express-session')
 
 /*******************************************
+ * @brief Validate the inputs of the a form or something else
+ * https://github.com/ctavan/express-validator
+ *********************************************/
+var expressValidator = require('express-validator');
+
+/*******************************************
  * @brief DB backend for session storage
  * https://github.com/expressjs/serve-favicon
  *********************************************/
@@ -85,6 +91,10 @@ var WebSocketServer = require('ws');
  *******************************************/
 var io = require('socket.io')(http);
 
+
+
+var Promise = require('promise');
+
 /*******************************************
  *@brief The HTTP interfaces in Node.js are designed to support many features of the protocol which have been traditionally difficult to use.
  * In particular, large, possibly chunk-encoded, messages.
@@ -113,72 +123,72 @@ var db = monk('localhost:27017/remoteWorkstation');
 http.listen(3010, function () {
     console.log('listening on *:3010');
 });
-
-/*Setup refresh logic for permanent reqeusting of the RemoteWorkstations.*/
-var onlineListe = [];
-var remoteCol = db.get('remoteWorkstations');
-if (remoteCol == null)
-    console.log("Error: RemoteWorkstationsCollection nicht vorhanden");
-else {
-    var session = ping.createSession();
-    //Schedule Regel festlegen
-    var rule = new schedule.RecurrenceRule();
-    rule.second = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
-
-    //Job ausführen
-    var j = schedule.scheduleJob(rule, function () {
-        //Alle RemoteWorkstations in der Datenbank abfragen
-        remoteCol.find({}, {}, function (e, remoteWorkstation) {
-            //Durch die Liste alle RemoteWorkstations iterieren
-            for (var i = 0; i < remoteWorkstation.length; i++) {
-                var remote = remoteWorkstation[i];
-                if (remote.state == "Defect" || remote.state == "Maintaince") {
-                    console.log("continue");
-                    continue;
+var On = false;
+if(On) {
+    /*Setup refresh logic for permanent reqeusting of the RemoteWorkstations.*/
+    var onlineListe = [];
+    var remoteCol = db.get('remoteWorkstations');
+    if (remoteCol == null)
+        console.log("Error: RemoteWorkstationsCollection nicht vorhanden");
+    else {
+        var session = ping.createSession();
+        //Schedule Regel festlegen
+        var rule = new schedule.RecurrenceRule();
+        rule.second = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+        console.log("rule started");
+        //Job ausführen
+        var j = schedule.scheduleJob(rule, function () {
+            //Alle RemoteWorkstations in der Datenbank abfragen
+            remoteCol.find({}, {}, function (e, remoteWorkstation) {
+                console.log("date");
+                //Durch die Liste alle RemoteWorkstations iterieren
+                for (var i = 0; i < remoteWorkstation.length; i++) {
+                    var remote = remoteWorkstation[i];
+                    if (remote.state == "Defect" || remote.state == "Maintaince") {
+                        console.log("continue");
+                        continue;
+                    }
+                    dns.lookup(remote.a_number, function (err, result) {
+                        if (err) {
+                            onlineListe.push([err.hostname, "Offline"]);
+                        }
+                        else {
+                            dns.reverse(result, function (err, hostnames) {
+                                if (err) {
+                                    console.log(err.stack);
+                                }
+                                else {
+                                    session.pingHost(result.toString(), function (error, target) {
+                                        if (error instanceof ping.RequestTimedOutError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else if (error instanceof ping.DestinationUnreachableError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else if (error instanceof ping.ParameterProblemError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else if (error instanceof ping.TimeExceededError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else if (error instanceof ping.SourceQuenchError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else if (error instanceof ping.PacketTooBigError) {
+                                            onlineListe.push([hostnames, "Offline"]);
+                                        }
+                                        else {
+                                            onlineListe.push([hostnames, "On"]);
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    })
                 }
-                dns.lookup(remote.a_number, function (err, result) {
-                    if (err) {
-                        onlineListe.push([err.hostname,"Offline"]);
-                    }
-                    else {
-                        dns.reverse(result, function (err, hostnames) {
-                            if (err) {
-                                console.log(err.stack);
-                            }
-                            else {
-                                session.pingHost(result.toString(), function (error, target) {
-                                    if (error instanceof ping.RequestTimedOutError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else if (error instanceof ping.DestinationUnreachableError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else if (error instanceof ping.ParameterProblemError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else if (error instanceof ping.TimeExceededError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else if (error instanceof ping.SourceQuenchError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else if (error instanceof ping.PacketTooBigError) {
-                                        onlineListe.push([err.hostname,"Offline"]);
-                                    }
-                                    else {
-                                        onlineListe.push([err.hostname,"On"]);
-                                    }
-                                });
-
-                            }
-
-
-                        })
-                    }
-                })
-            }
+            });
         });
-    });
+    }
 }
 /*********************************************************************************
         _                                  _                       _
@@ -194,6 +204,18 @@ else {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+/**********************************************************************************
+ * @brief Setup Express-Session
+**********************************************************************************/
+app.set('trust proxy',1) // trust first proxy
+app.use( session({
+    resave: false,
+    saveUninitialized: false,
+    secret : 's3Cur3',
+    name : 'sessionId'
+}))
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -201,6 +223,24 @@ app.set('view engine', 'jade');
 //app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+/*Needs to be done here, because the validator uses the bodyParser*/
+app.use(expressValidator({
+    customValidators: {
+        isUser: function (username,password)
+        {
+            return new Promise(function(resolve, reject) {
+                var users = db.get('users');
+                users.find({user : username},{}, function(e,docs){
+                    if(docs) {
+                        return resolve(docs);
+                    }
+                    reject(docs);
+                });
+            });
+        }
+    }
+}));
+
 /*CookieParser*/
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
