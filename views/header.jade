@@ -4,12 +4,11 @@
         .modal-content(style="padding:20px;")
                 form.form-signin(action="/submit" method="post")
                     h2.form-signin-heading Please sign in
-                    label.sr-only(for='inputEmail') Username
-                    input#inputEmail.form-control(name="username", placeholder='Email address', required='', autofocus='')
+                    label.sr-only(for='username') Username
+                    input#username.form-control(name="username", placeholder='Username', required='', autofocus='true')
                     label.sr-only(for='inputPassword') Password
                     input#inputPassword.form-control(name="password" type='password', placeholder='Password', required='')
-                    .checkbox
-                        label
+                    label
                             input(type='checkbox', value='remember-me')
                             |  Remember me
                     button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
@@ -25,13 +24,13 @@ nav.navbar.navbar-dark.navbar-fixed-top.bg-inverse
     #navbar
         nav.nav.navbar-nav.pull-xs-left
             a.nav-item.nav-link.hidden-sm-down(href='/') Dashboard
-            a.nav-item.nav-link.hidden-sm-down(href='#') Settings
-            a.nav-item.nav-link.hidden-sm-down(href='#') Profile
-            a.nav-item.nav-link.hidden-sm-down(href='#') Help
+            a.nav-item.nav-link.hidden-sm-down(href='/settings') Settings
+            a.nav-item.nav-link.hidden-sm-down(href='/profile') Profile
+            a.nav-item.nav-link.hidden-sm-down(href='/help') Help
         - if(!success)
             button.btn.btn-primary.pull-xs-right(style="margin-left:5px;", type='button', data-toggle='modal', data-target='.bd-example-modal-sm') Login
         - else
-            .dropdown.open.pull-xs-right(style="min-width:150px;margin-left:5px;margin-rigth:20px;")
+            .dropdown.pull-xs-right(style="min-width:150px;margin-left:5px;margin-rigth:20px;")
                 button#dropdownMenuButton.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='false', aria-expanded='true' ,style="min-width:100px;")
                     | #{user}
                 .dropdown-menu(aria-labelledby='dropdownMenuButton',style="min-width:150px;")

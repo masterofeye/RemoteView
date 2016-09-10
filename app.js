@@ -252,11 +252,23 @@ app.use(function (req, res, next) {
     req.ws = WebSocketServer;
     next();
 });
+/****************************************
+                  _
+                 | |
+  _ __ ___  _   _| |_ ___  ___
+ | '__/ _ \| | | | __/ _ \/ __|
+ | | | (_) | |_| | ||  __/\__ \
+ |_|  \___/ \__,_|\__\___||___/
 
+ ****************************************/
 app.use('/', routes);
 app.use('/daimler', routes);
 app.use('/remote', routes);
+app.use('/settings', routes);
+app.use('/profile', routes);
+app.use('/help', routes);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

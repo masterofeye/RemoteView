@@ -226,6 +226,38 @@ router.put("/:id/edit", function(req,res)
 
 });
 
+/**********************************************
+  _____      _   _   _
+ / ____|    | | | | (_)
+| (___   ___| |_| |_ _ _ __   __ _ ___
+ \___ \ / _ \ __| __| | '_ \ / _` / __|
+ ____) |  __/ |_| |_| | | | | (_| \__ \
+|_____/ \___|\__|\__|_|_| |_|\__, |___/
+                              __/ |
+                             |___/
+**************************************************/
+router.get('/settings', function(req, res, next) {
+  res.render('settings', { title: 'Settings', user: req.session.user, success: req.session.success, error: req.session.errors });
+  /*All errrors must be cleared after showing*/
+  req.session.errors = null;
+});
+
+
+/**********************************************
+  _    _      _
+ | |  | |    | |
+ | |__| | ___| |_ __
+ |  __  |/ _ \ | '_ \
+ | |  | |  __/ | |_) |
+ |_|  |_|\___|_| .__/
+               | |
+               |_|
+ **************************************************/
+router.get('/help', function(req, res, next) {
+  res.render('help', { title: 'Help', user: req.session.user, success: req.session.success, error: req.session.errors });
+  /*All errrors must be cleared after showing*/
+  req.session.errors = null;
+});
 
 
 module.exports = router;

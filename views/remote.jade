@@ -8,7 +8,8 @@ block content
             .row
                 .col-sm-3.col-sm-offset-0.col-md-4.col-md-offset-2
                     .client
-                        h1 Please login first.
+                        .alert.alert-danger(role='alert')
+                            h1 Please login first.
         - else if (remote.length)
             .row
                 .col-xl-3.col-lg-offset-2
@@ -26,8 +27,7 @@ block content
                         .row
                             .col-sm-3 Status:
                             .col-sm-3
-                                strong
-                                    !{remote[0].state}
+                                strong !{remote[0].state}
                 .col-xl-4
                     .cliente
                         h3 Peripherie Information
@@ -50,11 +50,11 @@ block content
                                         .col-xs-2.col-sm-2.col-md-2
                                             label.form-control(style="width:150px") Logout User:
                                         .col-sm-2
-                                            button.btn.btn-default.btn-md(type='button' style="width:150px") LogOut
+                                            button.btn.btn-default.btn-md(type='button', style="width:150px", onclick="(function(){var cmd = new Command(12,'RemoteView','RemoteService','SET',''); cmd.send()})()") LogOut
                                         .col-sm-2
                                             label.form-control(style="width:150px")  Shutdown PC:
                                         .col-sm-2
-                                            button.btn.btn-default.btn-md(type='button' style="width:150px") Shutdown
+                                            button.btn.btn-default.btn-md(type='button' style="width:150px", onclick="(function(){var cmd = new Command(13,'RemoteView','RemoteService','SET',''); cmd.send()})()") Shutdown
                                         .col-sm-2
                                             label.form-control(style="width:150px")  Restart PC:
                                         .col-sm-2
@@ -90,18 +90,19 @@ block content
                                 .row
                                     //Sortieren nach Gruppe
                                     - var test = remote[0].buttons.sort(function(a,b){ if(a.group < b.group) return -1; if(a.group > b.group) return 1; return 0; })
-                                    - var lastGroup = "";
+                                    - var lastGroup = "b";
                                     each b in remote[0].buttons
-                                        - console.log(lastGroup)
+                                        - console.log(LastGroup)
                                         - console.log(b.group)
-                                        - if(String(Lastgroup) !== String(b.group))
+                                        if(lastGroup != b.group)
+                                            - var LastGroup = "test"
                                             .row
                                                 .col-sm-2 #{b.group}
                                                     input(type='checkbox', data-label-text='#{b.name}', name='my-checkbox', onchange='OnClickCommandButton(event,"#{b.type}","#{b.index}","#{b.pin}");')
-                                        - else
-                                            .col-sm-2 #{b.group}
+                                        else
+                                            .col-sm-2
                                                 input(type='checkbox', data-label-text='#{b.name}', name='my-checkbox', onchange='OnClickCommandButton(event,"#{b.type}","#{b.index}","#{b.pin}");')
-                                        - lastGroup = b.group;
+
             .row
                 .col-xl-7.col-lg-offset-2
                     .cliente
@@ -121,7 +122,7 @@ block content
                                             td
                                                 each val in users
                                                     p #{(String(t.user) == String(val._id)) ? String(val.user) : ""}
-                                            - function GetTime(time){ console.log(time);  var date = new Date(time); var day = date.toTimeString(); var hours = date.getHours();var minutes = "0" + date.getMinutes();var seconds = "0" + date.getSeconds();var formattedTime = date.toISOString();return formattedTime;}
+                                            - function GetTime(time){ var date = new Date(time); var day = date.toTimeString(); var hours = date.getHours();var minutes = "0" + date.getMinutes();var seconds = "0" + date.getSeconds();var formattedTime = date.toISOString();return formattedTime;}
                                             td #{GetTime(t.time)}
                                             td #{t.bootloader}
                                             td #{t.ac}
@@ -254,76 +255,40 @@ block content
                 }]
             });
         });
-        var ws = new WebSocket('ws://localhost:1234');
 
-        class Command
-        {
-            constructor(CmdId,Src,Dst,ExecutionVariant,Param)
-            {
-                this.cmdid = CmdId;
-                this.src = Src;
-                this.dst = Dst;
-                this.executionvariant = ExecutionVariant;
-                this.params = Param;
-            }
-
-            set CmdID(Id)
-            {
-                this.cmdid = Id;
-            }
-
-            /*
-            * @return {number}
-            */
-            get CmdID(){
-                return this.cmdid;
-            }
-
-            /*
-             * @return {string}
-             */
-            get Src() {
-                return this.src;
-            }
-
-            /*
-             * @return {string}
-             */
-            get Dst() {
-                return this.executionvariant;
-            }
-
-            get param() {
-                return this.params;
-            }
-
-            ToJson() {
-               return JSON.stringify({"cmd" : {"cmdid" : this.cmdid, "src" : this.src, "dst" : this.dst, "executionvariant" : this.executionvariant, "param" : this.param}});
-            }
-
+        var Command = function(CmdId, Src, Dst, ExecutionVariant, Param){
+            this.cmdid = CmdId;
+            this.src = Src;
+            this.dst = Dst;
+            this.executionvariant = ExecutionVariant;
+            this.params = Param;
         }
-        ws.onopen = function () {
-            console.log('Connected');
 
-            var text =
-                    '[{ "bootloader":{"path": "c:/files/boot_test.prg"} },' +
-                    '{ "ac":{"path": "c:/files/boot_test.prg"}},' +
-                    '{ "gc": {"path": "c:/files/boot_test.prg", "isusb": "true"} ' +
-                    '}]';
+        Command.prototype.ToJson = function()
+        {
+            return JSON.stringify({
+                "cmd": {
+                    "cmdid": this.cmdid,
+                    "src": this.src,
+                    "dst": this.dst,
+                    "executionvariant": this.executionvariant,
+                    "param": this.param
+                }
+            });
+        }
 
-            var obj = JSON.parse(text);
-            console.log(obj);
+        Command.prototype.send = function (){
+            var json = this.ToJson();
+            var ws = new WebSocket('ws://localhost:1234');
+            ws.onopen = function () {
+                console.log(json);
 
-            var t = new Command(11,"web","relay","SET",obj);
-            var json = t.ToJson();
-            ws.send(json);
-            ws.onmessage = function (e) {
-                console.log('Server: ' + e.data);
-            };
+                ws.send(json);
+                ws.onmessage = function (e) {
+                    console.log('Server: ' + e.data);
+                };
+            }
+            ws.onerror = function (error) {
+                console.log('WebSocket Error ' + error);
+            }
         };
-
-
-
-
-
-

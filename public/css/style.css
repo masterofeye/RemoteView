@@ -22,3 +22,8 @@ input[value]:disabled {
   margin-top: 7px;
   margin-left:10px;
 }
+
+.form-control{
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
