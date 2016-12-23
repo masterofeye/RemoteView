@@ -2,19 +2,30 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import QtQml.Models 2.1
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.3
+
 Item {
     property int elementCount: 7
     property variant modeldata : ({})
+    readonly property int minWidthIconSize : 32
+    readonly property int minHeightIconSize : 32
+
+    readonly property int maxWidthFeatureSize : 48
+    readonly property int maxHeightFeatureSize : 48
+
     id: test
-    Grid{
+    GridLayout{
 
         //property alias element: paremt.elementCount
-        rows: 2
+        //rows: 2
         columns: elementCount / 2 + elementCount % 2
-        width : parent.width
-        height : parent.height
+        width : maxHeightFeatureSize *elementCount/2
+        height : maxHeightFeatureSize * 2
         id: featureGrid
-        Component.onCompleted: console.log(elementCount)
+        rowSpacing: 0
+        columnSpacing: 0
+
+       //Component.onCompleted: console.log(elementCount)
 
         Repeater{
             model: elementCount
@@ -24,7 +35,11 @@ Item {
                 border.width: 2
                 width: featureGrid.width / featureGrid.columns
                 height: featureGrid.height / featureGrid.rows
-                //Component.onCompleted: console.log(featureGrid.width);
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.maximumWidth: 48
+                Layout.minimumWidth: 48
 
 
                 LinearGradient {
@@ -37,7 +52,7 @@ Item {
                     }
                 }
                 Rectangle {
-                    width: 32; height: 32
+                    width: minWidthIconSize; height: minHeightIconSize
                     color: "transparent"
                     anchors.centerIn: parent
                     id : tester

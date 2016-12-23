@@ -14,5 +14,8 @@
         <file alias="voltage">Resourcen/technology-26.png</file>
         <file alias="hudcam">Resourcen/technology-6.png</file>
         <file alias="debug">Resourcen/wrench.png</file>
+        <file>MainSection.qml</file>
+        <file>WorkstationIdentifier.qml</file>
+        <file>StatusBar.qml</file>
     </qresource>
 </RCC>

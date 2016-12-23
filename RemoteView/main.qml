@@ -8,8 +8,11 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
+    MainSection{
+        anchors.fill: parent
+    }
 
-    ListView{
+    /*ListView{
         id: view
         anchors.fill: parent
         model: myModel
@@ -19,7 +22,7 @@ ApplicationWindow {
             pcId: model.modelData.name
 
         }
-    }
+    }*/
 
 
     /*SwipeView {

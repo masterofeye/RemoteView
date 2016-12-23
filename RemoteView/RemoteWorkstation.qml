@@ -4,7 +4,7 @@ import QtQuick.Controls 2.0
 Item {
     id: remoteWorkstation
     property string pcId : "NAN"
-    height: 100
+    height: 144
     Row {
         id: basicLayout
         anchors.fill: parent
@@ -12,6 +12,9 @@ Item {
             id: pcName
             width: parent.width * 1/5
             height: parent.height
+            border.color : "black"
+            border.width : 1
+            radius : 10
 
             gradient: Gradient {
                 GradientStop {
@@ -44,6 +47,9 @@ Item {
             Rectangle{
                 id: statusBar
                 height: basicLayout.height *1/3
+                border.color : "black"
+                border.width : 1
+                radius : 10
                 gradient: Gradient {
                     GradientStop {
                         position: 0
@@ -64,7 +70,7 @@ Item {
                 }
                 anchors.left: parent.left
                 anchors.right: parent.right
-                border.width: 0
+
 
                 Label{
                     color: "white"
@@ -84,15 +90,14 @@ Item {
                     id:temp
                     height: parent.height
                     width: rightSection.width * 3/7
-                    color: "transparent"
-                    border.width: 1
+                    color: "#f6f6f6"
 
                     Component.onCompleted: {
                         var comp = Qt.createComponent("FeatureList.qml");
                         if(comp.status == Component.Ready)
                         {
                            var obj = comp.createObject(this,{"anchors.fill": this, "modeldata" : model, "elementCount" : model.modelData.features.length})
-                            console.log(model.modelData.features.length)
+                            //console.log(model.modelData.features.length)
                         }
                     }
                 }
@@ -120,7 +125,7 @@ Item {
                                 font.bold: true
                                 verticalAlignment: Text.AlignVCenter
                                 horizontalAlignment: Text.AlignHCenter
-                                width: gcLayout.width * 1/7
+                                width: gcLayout.width * 2/7
                                 font.pixelSize: 10
                             }
                             Text {
@@ -130,8 +135,8 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.bold: true
                                 verticalAlignment: Text.AlignVCenter
-                                horizontalAlignment: Text.AlignHCenter
-                                width: gcLayout.width * 6/7
+                                horizontalAlignment: Text.AlignLeft
+                                width: gcLayout.width * 5/7
                                 font.pixelSize: 10
                             }
                         }
