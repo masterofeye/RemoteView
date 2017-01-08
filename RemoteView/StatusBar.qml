@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 Item {
+    property string identifier
     Rectangle{
         anchors.fill: parent
         color : "#333333"
@@ -29,8 +30,8 @@ Item {
         Label{
             color: "white"
             font.bold: true
-            font.pointSize: 30
-            text: "A717"
+            font.pointSize: 22
+            text: identifier
             anchors.centerIn: parent
         }
 

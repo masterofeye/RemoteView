@@ -10,6 +10,13 @@ ApplicationWindow {
 
     MainSection{
         anchors.fill: parent
+        identifier: RemoteWorkstations[0].hostname
+        //model: myModel
+        Component.onCompleted: {
+            console.log(msg.author);
+            console.log(RemoteWorkstations);
+            console.log(RemoteWorkstations[0].Ip);
+        }
     }
 
     /*ListView{

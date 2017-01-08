@@ -3,6 +3,9 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 
 Item {
+    id:mainsection
+    property string identifier
+
     Rectangle
     {
         anchors.fill: parent
@@ -24,15 +27,24 @@ Item {
                 Layout.rowSpan: 2
                 width: 120
                 height: 120
+                identifier: mainsection.identifier
             }
-
 
             Rectangle
             {
+
                 Layout.row: 1
                 Layout.column: 1
                 width: 120
-                height: 40
+                height: 80
+                Component.onCompleted: {
+                    var comp = Qt.createComponent("FeatureList.qml");
+                    if(comp.status == Component.Ready)
+                    {
+                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : 6})
+                        //console.log(model.modelData.features.length)
+                    }
+                }
             }
 
             Rectangle
@@ -40,7 +52,7 @@ Item {
                 Layout.row: 1
                 Layout.column: 2
                 width: 120
-                height: 40
+                height: 80
             }
 
             Rectangle
@@ -48,7 +60,7 @@ Item {
                 Layout.row: 1
                 Layout.column: 3
                 width: 120
-                height: 40
+                height: 80
             }
 
             StatusBar
@@ -59,15 +71,10 @@ Item {
                 Layout.alignment:  Qt.AlignVCenter | Qt.AlignLeft
                 width: 500
                 height: 30
+                identifier: mainsection.identifier
 
             }
 
         }
-
-
-
-
-
-
     }
 }

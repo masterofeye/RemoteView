@@ -10,12 +10,11 @@ Item {
     readonly property int minWidthIconSize : 32
     readonly property int minHeightIconSize : 32
 
-    readonly property int maxWidthFeatureSize : 48
-    readonly property int maxHeightFeatureSize : 48
+    readonly property int maxWidthFeatureSize : 40
+    readonly property int maxHeightFeatureSize : 40
 
     id: test
     GridLayout{
-
         //property alias element: paremt.elementCount
         //rows: 2
         columns: elementCount / 2 + elementCount % 2
@@ -38,8 +37,8 @@ Item {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.maximumWidth: 48
-                Layout.minimumWidth: 48
+                Layout.maximumWidth: test.maxWidthFeatureSize
+                Layout.minimumWidth: test.maxHeightFeatureSize
 
 
                 LinearGradient {
@@ -58,7 +57,7 @@ Item {
                     id : tester
                     Image {
                         anchors.fill: parent
-                        source: modeldata.modelData.features[index]
+                        source: "bug"
 
                     }
 

@@ -71,7 +71,6 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
 
-
                 Label{
                     color: "white"
                     font.bold: true
