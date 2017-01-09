@@ -32,7 +32,6 @@ Item {
 
             Rectangle
             {
-
                 Layout.row: 1
                 Layout.column: 1
                 width: 120

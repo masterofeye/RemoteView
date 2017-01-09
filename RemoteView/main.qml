@@ -10,7 +10,8 @@ ApplicationWindow {
 
     MainSection{
         anchors.fill: parent
-        identifier: RemoteWorkstations[0].hostname
+        identifier: RemoteWorkstations[0].Hostname
+        state: RemoteWorkstation[0].State
         //model: myModel
         Component.onCompleted: {
             console.log(msg.author);

@@ -17,5 +17,6 @@
         <file>MainSection.qml</file>
         <file>WorkstationIdentifier.qml</file>
         <file>StatusBar.qml</file>
+        <file>LoginForm.qml</file>
     </qresource>
 </RCC>
