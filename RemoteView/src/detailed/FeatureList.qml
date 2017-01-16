@@ -57,7 +57,7 @@ Item {
                     id : tester
                     Image {
                         anchors.fill: parent
-                        source: "bug"
+                        source: "../../Resourcen/bug.png"
 
                     }
 

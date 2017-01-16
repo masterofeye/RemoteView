@@ -1,13 +1,18 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
+//http://de.slideshare.net/VPlay-Game-Engine/2014-1007qt-dev-days-14-berlinfinalforweb
 
 Item {
     id:mainsection
+    width: workstationIdentifier.width + statusbar.width
+    height:120
     property string identifier
-
     Rectangle
     {
+        id:test
+        height: mainsection.height
+        width: mainsection.width
         anchors.fill: parent
         color: "#444444"
 
@@ -16,12 +21,13 @@ Item {
             columns: 4
             rows: 2
             anchors.fill: parent
-            columnSpacing: 0
-            rowSpacing: 0
+            columnSpacing: 2
+            rowSpacing: 2
 
 
             WorkstationIdentifier
             {
+                id:workstationIdentifier
                 Layout.row: 0
                 Layout.column: 0
                 Layout.rowSpan: 2
@@ -64,6 +70,7 @@ Item {
 
             StatusBar
             {
+                id:statusbar
                 Layout.row: 0
                 Layout.column: 1
                 Layout.columnSpan: 3
@@ -73,7 +80,6 @@ Item {
                 identifier: mainsection.identifier
 
             }
-
         }
     }
 }

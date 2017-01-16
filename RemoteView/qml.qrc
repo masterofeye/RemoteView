@@ -1,22 +1,32 @@
 <RCC>
     <qresource prefix="/">
-        <file>FeatureIcon.qml</file>
-        <file>FeatureList.qml</file>
         <file>main.qml</file>
-        <file>Page1.qml</file>
-        <file>Page1Form.ui.qml</file>
-        <file>RemoteWorkstation.qml</file>
-        <file alias="bug">Resourcen/bug.png</file>
-        <file alias="iccam">Resourcen/computer-1.png</file>
-        <file alias="settings">Resourcen/settings-1.png</file>
+        <file>Resourcen/bug.png</file>
+        <file>Resourcen/computer-1.png</file>
+        <file>Resourcen/settings-1.png</file>
         <file>Resourcen/technology-23.png</file>
         <file>Resourcen/technology-25.png</file>
-        <file alias="voltage">Resourcen/technology-26.png</file>
-        <file alias="hudcam">Resourcen/technology-6.png</file>
-        <file alias="debug">Resourcen/wrench.png</file>
-        <file>MainSection.qml</file>
-        <file>WorkstationIdentifier.qml</file>
-        <file>StatusBar.qml</file>
-        <file>LoginForm.qml</file>
+        <file>Resourcen/technology-26.png</file>
+        <file>Resourcen/technology-6.png</file>
+        <file>Resourcen/wrench.png</file>
+        <file>src/detailed/StatusBar.qml</file>
+        <file>src/detailed/FeatureIcon.qml</file>
+        <file>src/detailed/FeatureList.qml</file>
+        <file>src/detailed/MainSection.qml</file>
+        <file>src/detailed/WorkstationIdentifier.qml</file>
+        <file>src/login/LoginForm.qml</file>
+        <file>Resourcen/toolbar.png</file>
+        <file>src/overview/AndroidDelegate.qml</file>
+        <file>Resourcen/navigation_next_item.png</file>
+        <file>Resourcen/navigation_previous_item.png</file>
+        <file>Resourcen/button_default.png</file>
+        <file>Resourcen/button_pressed.png</file>
+        <file>src/overview/Overview.qml</file>
+        <file>src/detailed/Detailed.qml</file>
+        <file>Resourcen/statusbar.png</file>
+        <file>src/login/CloseButton.qml</file>
+        <file>src/login/Dragbox.qml</file>
+        <file>src/login/TextBox.qml</file>
+        <file>Resourcen/highlight.png</file>
     </qresource>
 </RCC>
