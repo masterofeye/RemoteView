@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 
-import rw.sessionmanager 1.0
+//import rw.sessionmanager 1.0
 //https://jryannel.wordpress.com/2010/02/22/designing-a-login-view/
 //https://doc.qt.io/archives/qt-5.5/enginio-qml-users-example.html
 //http://portal.bluejack.binus.ac.id/tutorials/qtapplicationusingqmlandcwithmysqldatabase
@@ -173,7 +173,7 @@ Item {
                         if (event.key === Qt.Key_Enter)
                             popup.close();
                     }
-                KeyNavigation.tab: textUsername}
+                    KeyNavigation.tab: textUsername}
             }
         }
     }
