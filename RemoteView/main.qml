@@ -13,6 +13,9 @@ ApplicationWindow {
     width: 640
     height: 720
     title: qsTr("Hello World")
+    minimumWidth: 480
+    minimumHeight: 720
+
 
     Rectangle {
         color: "#212126"
