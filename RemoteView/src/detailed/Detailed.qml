@@ -20,9 +20,10 @@ Item {
         id: displayDelegateModel
 
         delegate: MainSection{
-            identifier: Hostname
+            identifier: model.modelData.Hostname
+            state: model.modelData.State
         }
-        model: remoteworkstations
+        model: RemoteWorkstations
         groups: [
             DelegateModelGroup {
             includeByDefault: false
@@ -31,17 +32,13 @@ Item {
         ]
         filterOnGroup: "test"
         Component.onCompleted: {
-            var rowCount = remoteworkstations.length; //23
-             var entry2 =items.get(0)
-            items.remove(0,rowCount); //0
+            var rowCount = RemoteWorkstations.length;
+            var state = items.get(0).model.modelData.State
             for( var i = 0;i < rowCount;i++ ) {
-                var entry = root.remoteworkstations[i]; //Entry visible in the debugger
-
-
-                //if(root.projectname === entry.AssignedProject.Projectname)
-                    items.insert(entry,  "test"); //
+                if( items.get(i).model.modelData.AssignedProject.Projectname === projectname) {
+                     items.get(i).inTest = true
+                }
             }
-            console.log(items.count) //always 0
         }
     }
 

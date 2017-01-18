@@ -28,5 +28,6 @@
         <file>src/login/Dragbox.qml</file>
         <file>src/login/TextBox.qml</file>
         <file>Resourcen/highlight.png</file>
+        <file>src/detail/DetailView.qml</file>
     </qresource>
 </RCC>

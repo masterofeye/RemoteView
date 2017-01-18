@@ -24,6 +24,8 @@ Item {
             {
                 parent.color = "#333333";
             }
+            onClicked: stackView.push(Qt.resolvedUrl("../detail/DetailView.qml"))
+
         }
 
         Label{
