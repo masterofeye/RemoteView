@@ -33,6 +33,13 @@ namespace RW
         SessionManager& operator=(SessionManager const&) = delete;  // Copy assign
         SessionManager& operator=(SessionManager &&) = delete;      // Move assign
 
+        Q_INVOKABLE void IsAdminRole();
+        Q_INVOKABLE void IsUserRole();
+        Q_INVOKABLE void IsCaretakerRole();
+
+        bool IsActiveSession(){return m_Active;}
+        Session* ActiveSession(){return m_ActiveSession;}
+
     protected:
         SessionManager()
         {
@@ -44,8 +51,6 @@ namespace RW
              // Destructor code goes here.
         }
 
-        bool IsActiveSession(){return m_Active;}
-        Session* ActiveSession(){return m_ActiveSession;}
     private:
         void setActiveSession(Session *ActivesSession){m_ActiveSession = ActivesSession;}
 

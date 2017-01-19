@@ -9,11 +9,6 @@
         <file>Resourcen/technology-26.png</file>
         <file>Resourcen/technology-6.png</file>
         <file>Resourcen/wrench.png</file>
-        <file>src/detailed/StatusBar.qml</file>
-        <file>src/detailed/FeatureIcon.qml</file>
-        <file>src/detailed/FeatureList.qml</file>
-        <file>src/detailed/MainSection.qml</file>
-        <file>src/detailed/WorkstationIdentifier.qml</file>
         <file>src/login/LoginForm.qml</file>
         <file>Resourcen/toolbar.png</file>
         <file>src/overview/AndroidDelegate.qml</file>
@@ -22,12 +17,17 @@
         <file>Resourcen/button_default.png</file>
         <file>Resourcen/button_pressed.png</file>
         <file>src/overview/Overview.qml</file>
-        <file>src/detailed/Detailed.qml</file>
         <file>Resourcen/statusbar.png</file>
         <file>src/login/CloseButton.qml</file>
         <file>src/login/Dragbox.qml</file>
         <file>src/login/TextBox.qml</file>
         <file>Resourcen/highlight.png</file>
         <file>src/detail/DetailView.qml</file>
+        <file>src/remoteWorkstation/FeatureIcon.qml</file>
+        <file>src/remoteWorkstation/FeatureList.qml</file>
+        <file>src/remoteWorkstation/MainSection.qml</file>
+        <file>src/remoteWorkstation/RemoteWorkstation.qml</file>
+        <file>src/remoteWorkstation/StatusBar.qml</file>
+        <file>src/remoteWorkstation/WorkstationIdentifier.qml</file>
     </qresource>
 </RCC>

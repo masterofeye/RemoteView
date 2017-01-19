@@ -3,7 +3,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Styles 1.4
 
-import './src/detailed'
+import './src/remoteWorkstation'
 import "./src/overview"
 import "./src/login"
 

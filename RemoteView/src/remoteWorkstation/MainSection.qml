@@ -124,20 +124,19 @@ Item {
                 id: buttonContainer
                 Layout.row: 1
                 Layout.column: 3
-                width: 100
+                width: 120
                 height: 80
                 anchors.right: grid.right
                 anchors.rightMargin: 25
                 color: "transparent"
                 ColumnLayout{
                     Button {
-                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         text: qsTr("Connect")
                         id:connectButton
                         background: Rectangle
                         {
                             id: bgconnectButton
-                            implicitWidth: 100
+                            width: 120
                             implicitHeight: 35
                             color: connectButton.down ? "#33b5e5" : "#19191D"
                             radius: 5
@@ -168,35 +167,34 @@ Item {
                         }
                     }
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    text: qsTr("Disconnect")
-                    id:disconnectButton
-                    background: Rectangle
-                    {
-                        id: bgdisconnectButton
-                        implicitWidth: 100
-                        implicitHeight: 35
-                        color: disconnectButton.down ? "#33b5e5" : "#19191D"
-                        radius: 5
-                        border.width: 2
-                        border.color: "white"
-                    }
-                    contentItem: Text {
-                        text: disconnectButton.text
-                        font: disconnectButton.font
-                        opacity: enabled ? 1.0 : 0.1
-                        color: disconnectButton.down ? "#FFFFFF" : "#E6E6E6"
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        elide: Text.ElideRight
+                    Button {
+                        text: qsTr("Disconnect")
+                        id:disconnectButton
+                        background: Rectangle
+                        {
+                            id: bgdisconnectButton
+                            width: 120
+                            implicitHeight: 35
+                            color: disconnectButton.down ? "#33b5e5" : "#19191D"
+                            radius: 5
+                            border.width: 2
+                            border.color: "white"
+                        }
+                        contentItem: Text {
+                            text: disconnectButton.text
+                            font: disconnectButton.font
+                            opacity: enabled ? 1.0 : 0.1
+                            color: disconnectButton.down ? "#FFFFFF" : "#E6E6E6"
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            elide: Text.ElideRight
 
+                        }
+                        font.pointSize: 15
+                        onClicked: popup.close()
+                        Keys.onPressed: {
+                        }
                     }
-                    font.pointSize: 15
-                    onClicked: popup.close()
-                    Keys.onPressed: {
-                    }
-                }
                 }
             }
 
