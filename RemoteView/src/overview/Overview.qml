@@ -13,7 +13,7 @@ Item {
         anchors.fill: parent
         delegate: AndroidDelegate {
             text: model.Projectname
-            onClicked: stackView.push(Qt.resolvedUrl("../detailed/Detailed.qml"),{"projectname" : model.Projectname, "remoteworkstations":remoteworkstations})
+            onClicked: stackView.push(Qt.resolvedUrl("../remoteWorkstation/RemoteWorkstation.qml"),{"projectname" : model.Projectname, "remoteworkstations":remoteworkstations})
         }
     }
 }
