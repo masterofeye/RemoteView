@@ -8,6 +8,7 @@
 
 #include "RemoteDataConnectLibrary.h"
 #include "Sessionmanager.h"
+#include "Session.h"
 #include <spdlog\spdlog.h>
 Q_DECLARE_METATYPE( QList<RW::SQL::Project*> )
 Q_DECLARE_METATYPE( QList<RW::SQL::RemoteWorkstation*> )
@@ -20,8 +21,11 @@ int main(int argc, char *argv[])
     qRegisterMetaType<RW::SQL::Project>("RW::SQL::Project");
     qRegisterMetaType<RW::SQL::RemoteWorkstation>("RemoteWorkstation");
     qRegisterMetaType<RW::SQL::Project>("Project");
+    qRegisterMetaType<RW::Session>("RW::Session");
+    qRegisterMetaType<RW::Session>("Session");
     qmlRegisterType<RW::SQL::RemoteWorkstation>();
     qmlRegisterType<RW::SQL::Project>();
+    qmlRegisterType<RW::Session>();
     RW::qmlRegisterMySingleton();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

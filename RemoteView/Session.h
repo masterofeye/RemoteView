@@ -2,9 +2,13 @@
 #define SESSION_H
 
 #include <QObject>
-#include "RemoteDataConnectLibrary.h"
+
 namespace RW
 {
+    namespace SQL {
+    class User;
+    }
+
     class Session : public QObject
     {
         Q_OBJECT
@@ -12,15 +16,22 @@ namespace RW
         RW::SQL::User* m_User;
     public:
         explicit Session(QObject *parent = 0);
-        void AuthenticateUser(QString Password);
+        ~Session(){}
+        Session(const Session& other);
+        Session& Session::operator=(Session& other);
+        Session(Session&& other);
+        Session& Session::operator=(Session&& other);
 
-        Q_INVOKABLE void IsAdminRole(){m_User->Role() == RW::UserRole::Admin ? true : false;}
-        Q_INVOKABLE void IsUserRole(){m_User->Role() == RW::UserRole::User ? true : false;}
-        Q_INVOKABLE void IsCaretakerRole(){m_User->Role() == RW::UserRole::Caretaker ? true : false;}
+        Q_INVOKABLE bool AuthenticateUser(QString Username, QString Password);
+
+        Q_INVOKABLE bool IsAdminRole();
+        Q_INVOKABLE bool IsUserRole();
+        Q_INVOKABLE bool IsCaretakerRole();
+        Q_INVOKABLE QString UserName();
     signals:
 
     public slots:
     };
 }
-
+Q_DECLARE_METATYPE(RW::Session)
 #endif // SESSION_H

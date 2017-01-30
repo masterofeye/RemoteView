@@ -10,46 +10,29 @@ namespace RW
     class SessionManager : public QObject
     {
         Q_OBJECT
-        Q_PROPERTY(Session* ActiveSession READ ActiveSession WRITE setActiveSession NOTIFY ActiveSessionChanged)
+        Q_PROPERTY(RW::Session* ActiveSession READ ActiveSession WRITE setActiveSession NOTIFY ActiveSessionChanged)
     private:
         bool m_Active;
         Session* m_ActiveSession;
     public:
-        Q_INVOKABLE static SessionManager* Instance()
-        {
-            // Since it's a static variable, if the class has already been created,
-            // It won't be created again.
-            // And it **is** thread-safe in C++11.
-
-            static SessionManager myInstance;
-
-            // Return a reference to our instance.
-            return &myInstance;
-        }
-
         // delete copy and move constructors and assign operators
         SessionManager(SessionManager const&) = delete;             // Copy construct
         SessionManager(SessionManager&&) = delete;                  // Move construct
         SessionManager& operator=(SessionManager const&) = delete;  // Copy assign
         SessionManager& operator=(SessionManager &&) = delete;      // Move assign
 
-        Q_INVOKABLE void IsAdminRole();
-        Q_INVOKABLE void IsUserRole();
-        Q_INVOKABLE void IsCaretakerRole();
+        Q_INVOKABLE bool IsAdminRole();
+        Q_INVOKABLE bool IsUserRole();
+        Q_INVOKABLE bool IsCaretakerRole();
+        Q_INVOKABLE bool AuthenticateUser(QString Username, QString Password);
+        Q_INVOKABLE bool IsActive(){return m_Active;}
 
         bool IsActiveSession(){return m_Active;}
-        Session* ActiveSession(){return m_ActiveSession;}
+        RW::Session* ActiveSession(){return m_ActiveSession;}
 
-    protected:
-        SessionManager()
-        {
-             // Constructor code goes here.
-        }
-
-        ~SessionManager()
-        {
-             // Destructor code goes here.
-        }
+    public:
+        SessionManager();
+        ~SessionManager();
 
     private:
         void setActiveSession(Session *ActivesSession){m_ActiveSession = ActivesSession;}
@@ -64,12 +47,12 @@ namespace RW
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
 
-        return SessionManager::Instance();
+        return new SessionManager();
     }
 
     static void qmlRegisterMySingleton()
     {
-        qmlRegisterSingletonType<SessionManager>("SessionManager", 1, 0, "SessionManager", &getMySingleton);
+        qmlRegisterSingletonType<SessionManager>("Rw.SessionManager", 1, 0, "SessionManager", &getMySingleton);
     }
 
 }

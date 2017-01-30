@@ -8,6 +8,8 @@ import "./src/overview"
 import "./src/login"
 
 
+
+
 ApplicationWindow {
     visible: true
     width: 640
@@ -94,7 +96,7 @@ ApplicationWindow {
             x: 100
             y: 100
             width: 250
-            height: 200
+            height: 220
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape
@@ -109,8 +111,11 @@ ApplicationWindow {
                 border.right: 8
                 source: "../../Resourcen/highlight.png"
                 width: 250
-                height: 200
-                LoginForm{}
+                height: 220
+                LoginForm{
+                width: 240
+                height: 210
+                }
             }
         }
     }

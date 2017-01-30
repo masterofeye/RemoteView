@@ -3,19 +3,35 @@
 
 namespace RW
 {
-    void SessionManager::IsAdminRole()
+    SessionManager::SessionManager(): m_ActiveSession(new Session(this)),
+        m_Active(false)
+    {
+
+    }
+
+    SessionManager::~SessionManager()
+    {
+
+    }
+
+    bool SessionManager::IsAdminRole()
     {
         return m_ActiveSession->IsAdminRole();
     }
 
-    void SessionManager::IsUserRole()
+    bool SessionManager::IsUserRole()
     {
         return m_ActiveSession->IsUserRole();
     }
 
-    void SessionManager::IsCaretakerRole()
+    bool SessionManager::IsCaretakerRole()
     {
         return m_ActiveSession->IsCaretakerRole();
+    }
+
+    bool SessionManager::AuthenticateUser(QString Username, QString Password)
+    {
+        return m_Active = m_ActiveSession->AuthenticateUser(Username,Password);
     }
 
 }

@@ -1,7 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
-
+import Rw.SessionManager 1.0
 //import rw.sessionmanager 1.0
 //https://jryannel.wordpress.com/2010/02/22/designing-a-login-view/
 //https://doc.qt.io/archives/qt-5.5/enginio-qml-users-example.html
@@ -10,6 +10,7 @@ import QtQuick.Layouts 1.0
 //UserRole
 Item {
     Rectangle{
+        color: "transparent"
         anchors.fill: parent
         anchors.topMargin: 20
         ColumnLayout {
@@ -36,7 +37,7 @@ Item {
                     id: textUsername
                     width: 150
                     height: 20
-                    maxLength: 20
+
                     anchors{
                         leftMargin: 10
                         top: username.bottom
@@ -72,28 +73,21 @@ Item {
                         leftMargin: 10
                     }
                     isPassword: true
-                    onFocusChanged:{
-                        focus :true
-                    }
-
                     onEnter: {
                         if(textPassword.text.trim()==="" || textUsername.text.trim()==="")
                         {
                             err.visible = true;
                             err.text = "Username or password must be filled"
                         }
-                        else if(Services.doLogin(textUsername.text,textPassword.text))
+                        else if(SessionManager.AuthenticateUser(textUsername.text,textPassword.text))
                         {
-                            Session.username = textUsername.text;
-                            var userid = Services.getUserID(Session.username);
-                            if(Services.getUserRole(userid)==="Assistant Supervisor")
-                            {
-                                container.state = "AstSpv";
-                            }
-                            else
-                            {
-                                container.state = "MainMenu";
-                            }
+                            console.log("IstUser:");
+                            console.log(SessionManager.IsUserRole());
+                            console.log("IstAdmin:");
+                            console.log(SessionManager.IsAdminRole());
+                            console.log("IstCaretaker:");
+                            console.log(SessionManager.IsCaretakerRole());
+                            popup.close();
                         }
                         else
                         {
@@ -101,18 +95,54 @@ Item {
                             err.text = "Wrong Username or password"
                         }
                     }
-          }
+                }
             }
+            ColumnLayout {
+                visible: false
+                id:err
+                property alias text: errtext.text
+                Layout.alignment: Qt.AlignHCenter
+                Text{
+                    id:errtext
+                    color:"red"
+                    font{
+                        pixelSize: 10
+                        bold: true
+                    }
+                    anchors{
+                        leftMargin: 100
+                    }
+                    Layout.alignment: Qt.AlignHCenter
+                }
+            }
+
             RowLayout {
-                Layout.alignment: Qt.AlignRight
+                Layout.alignment: Qt.AlignHCenter
                 Layout.leftMargin: 20
                 Button {
                     text: qsTr("Login")
                     id:loginButton
                     onClicked:
                     {
-                        var session = Sessionmanager.Instance()
-                        session.ActiveSession
+                        if(textPassword.text.trim()==="" || textUsername.text.trim()==="")
+                        {
+                            err.visible = true;
+                            err.text = "Username or password must be filled"
+                        }
+                        else if(SessionManager.AuthenticateUser(textUsername.text,textPassword.text))
+                        {
+                            console.log("IstUser:");
+                            console.log(SessionManager.IsUserRole());
+                            console.log("IstAdmin:");
+                            console.log(SessionManager.IsAdminRole());
+                            console.log("IstCaretaker:");
+                            console.log(SessionManager.IsCaretakerRole());
+                        }
+                        else
+                        {
+                            err.visible = true;
+                            err.text = "Wrong Username or password"
+                        }
                     }
                     background: Rectangle
                     {
