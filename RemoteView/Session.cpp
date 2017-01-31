@@ -54,7 +54,6 @@ namespace RW
             }
             else
             {
-                m_User = nullptr;
                 return false;
             }
         }
