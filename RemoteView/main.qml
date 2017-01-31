@@ -96,7 +96,7 @@ ApplicationWindow {
             x: 100
             y: 100
             width: 250
-            height: 220
+            height: 250
             modal: true
             focus: true
             closePolicy: Popup.CloseOnEscape
@@ -111,10 +111,10 @@ ApplicationWindow {
                 border.right: 8
                 source: "../../Resourcen/highlight.png"
                 width: 250
-                height: 220
+                height: 250
                 LoginForm{
                 width: 240
-                height: 210
+                height: 230
                 }
             }
         }
@@ -147,10 +147,10 @@ ApplicationWindow {
                 delegate: AndroidDelegate {
                     text: title
                     onClicked: stackView.push(Qt.resolvedUrl(page),{"projects" : Projects, "remoteworkstations" : RemoteWorkstations})
+                }
             }
         }
     }
-}
 
     footer: BorderImage {
         border.top: 8

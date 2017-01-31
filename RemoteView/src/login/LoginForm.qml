@@ -9,6 +9,18 @@ import Rw.SessionManager 1.0
 
 //UserRole
 Item {
+    id: root
+
+    function resetLoginForm()
+    {
+        textPassword.text = ""
+        textUsername.text = ""
+        //prevent the user to see the arrow message after he starts the screen again
+        err.visible = false;
+        popup.close();
+        username.focus = true
+    }
+
     Rectangle{
         color: "transparent"
         anchors.fill: parent
@@ -17,33 +29,31 @@ Item {
             anchors.fill: parent
             spacing: 16
             ColumnLayout {
-
                 Layout.alignment: Qt.AlignHCenter
                 spacing: 4
                 Text{
-
-                    id: username
+                    id:username
                     text: "Username"
                     color: "grey"
                     font{
-                        pixelSize: 12
+                        pixelSize: 16
                         bold: true
                     }
                     anchors{
                         leftMargin: 10
+
                     }
                 }
                 TextBox{
+                    focus:true //The username textbox should have the focus at start
                     id: textUsername
                     width: 150
-                    height: 20
-
+                    height: 30
                     anchors{
                         leftMargin: 10
                         top: username.bottom
                         topMargin: 5
                     }
-
                     KeyNavigation.tab: textPassword
                 }
             }
@@ -55,7 +65,7 @@ Item {
                       text: "Password"
                       color: "grey"
                       font{
-                          pixelSize: 12
+                          pixelSize: 16
                           bold: true
                       }
                       anchors{
@@ -67,33 +77,14 @@ Item {
                 TextBox{
                     id: textPassword
                     width: 150
-                    height: 20
+                    height: 30
                     maxLength: 19
                     anchors{
                         leftMargin: 10
                     }
-                    isPassword: true
+                    isPassword: true //Use the textbox as a passwordbox
                     onEnter: {
-                        if(textPassword.text.trim()==="" || textUsername.text.trim()==="")
-                        {
-                            err.visible = true;
-                            err.text = "Username or password must be filled"
-                        }
-                        else if(SessionManager.AuthenticateUser(textUsername.text,textPassword.text))
-                        {
-                            console.log("IstUser:");
-                            console.log(SessionManager.IsUserRole());
-                            console.log("IstAdmin:");
-                            console.log(SessionManager.IsAdminRole());
-                            console.log("IstCaretaker:");
-                            console.log(SessionManager.IsCaretakerRole());
-                            popup.close();
-                        }
-                        else
-                        {
-                            err.visible = true;
-                            err.text = "Wrong Username or password"
-                        }
+                        loginButton.doLogin();
                     }
                 }
             }
@@ -119,10 +110,23 @@ Item {
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.leftMargin: 20
+                spacing: 10
                 Button {
-                    text: qsTr("Login")
                     id:loginButton
+                    text: qsTr("Login")
+                    Keys.onPressed:{
+                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
+                        {
+                            loginButton.doLogin();
+                            event.accepted = true
+                        }
+                    }
                     onClicked:
+                    {
+                        doLogin();
+                    }
+
+                    function doLogin()
                     {
                         if(textPassword.text.trim()==="" || textUsername.text.trim()==="")
                         {
@@ -137,6 +141,7 @@ Item {
                             console.log(SessionManager.IsAdminRole());
                             console.log("IstCaretaker:");
                             console.log(SessionManager.IsCaretakerRole());
+                            root.resetLoginForm();
                         }
                         else
                         {
@@ -144,11 +149,12 @@ Item {
                             err.text = "Wrong Username or password"
                         }
                     }
+
                     background: Rectangle
                     {
                         id: bgloginButton
-                        implicitWidth: 80
-                        implicitHeight: 40
+                        implicitWidth: 75
+                        implicitHeight: 35
                         radius: 10
                         color: loginButton.down ? "#33b5e5" : "#212126"
                     }
@@ -176,8 +182,8 @@ Item {
                     background: Rectangle
                     {
                         id: bgCloseLoginButton
-                        implicitWidth: 80
-                        implicitHeight: 40
+                        implicitWidth: 75
+                        implicitHeight: 35
                         radius: 10
                         color: closeLoginButton.down ? "#33b5e5" : "#212126"
                     }
@@ -192,16 +198,23 @@ Item {
 
                     }
                     font.pointSize: 15
-                    onClicked: popup.close()
+                    onClicked: {
+                        //Close the Dialog and reset the form to the initial state
+                        root.resetLoginForm();
+                    }
                     onFocusChanged: {
                      if(activeFocus)
                          bgCloseLoginButton.color = "#434344"
                      else
                          bgCloseLoginButton.color = "#212126"
                     }
+
                     Keys.onPressed: {
-                        if (event.key === Qt.Key_Enter)
-                            popup.close();
+                        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
+                        {
+                            //Close the Dialog and reset the form to the initial state
+                            root.resetLoginForm();
+                        }
                     }
                     KeyNavigation.tab: textUsername}
             }

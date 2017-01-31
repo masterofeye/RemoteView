@@ -23,7 +23,7 @@ FocusScope {
             id: textinput
             font{
                 bold: true
-                pixelSize: 12
+                pixelSize: 20
             }
             width: parent.width-10
             focus: true
