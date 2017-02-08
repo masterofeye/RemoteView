@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Styles 1.4
-
+import Rw.SessionManager 1.0
 import './src/remoteWorkstation'
 import "./src/overview"
 import "./src/login"
@@ -17,7 +17,7 @@ ApplicationWindow {
     title: qsTr("Hello World")
     minimumWidth: 480
     minimumHeight: 720
-
+    id: appWindow
 
     Rectangle {
         color: "#212126"
@@ -65,7 +65,7 @@ ApplicationWindow {
 
         Button
         {
-            id:control
+            id:loginAndSettingsButton
 
             background: Rectangle
             {
@@ -75,10 +75,10 @@ ApplicationWindow {
                 color:"black"
             }
             contentItem: Text {
-                text: control.text
-                font: control.font
+                text: loginAndSettingsButton.text
+                font: loginAndSettingsButton.font
                 opacity: enabled ? 1.0 : 0.1
-                color: control.down ? "#FFFFFF" : "#E6E6E6"
+                color: loginAndSettingsButton.down ? "#FFFFFF" : "#E6E6E6"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 elide: Text.ElideRight
@@ -88,11 +88,31 @@ ApplicationWindow {
             anchors.right: parent.right
             anchors.verticalCenter: titel.verticalCenter
 
-            onClicked: popup.open()
+            onClicked:{
+                if(!SessionManager.IsActive())
+                {
+                    loginPopup.open()
+                }
+                else
+                {
+                    var component = Qt.createComponent("src/settings/Settings.qml");
+                    if (component.status == Component.Ready) {
+                        var win = component.createObject(appWindow);
+                    }
+                    else
+                    {
+                        console.log(component.errorString())
+                        //Todo Error
+                    }
+
+                    win.show();
+                }
+
+            }
         }
 
         Popup {
-            id: popup
+            id: loginPopup
             x: 100
             y: 100
             width: 250

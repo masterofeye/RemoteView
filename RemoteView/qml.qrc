@@ -29,5 +29,6 @@
         <file>src/remoteWorkstation/RemoteWorkstation.qml</file>
         <file>src/remoteWorkstation/StatusBar.qml</file>
         <file>src/remoteWorkstation/WorkstationIdentifier.qml</file>
+        <file>src/settings/Settings.qml</file>
     </qresource>
 </RCC>
