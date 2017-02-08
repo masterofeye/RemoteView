@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     RW::SQL::Register::RegisterRWMetaTypes();
 
     qRegisterMetaType<RW::RemoteWorkstationState>("RW::RemoteWorkstationState");
+    qRegisterMetaType<RW::UserRole>("RW::UserRole");
     qRegisterMetaType<RW::SQL::RemoteWorkstation>("RW::SQL::RemoteWorkstation");
     qRegisterMetaType<RW::SQL::Project>("RW::SQL::Project");
     qRegisterMetaType<RW::SQL::RemoteWorkstation>("RemoteWorkstation");
@@ -25,7 +26,9 @@ int main(int argc, char *argv[])
     qRegisterMetaType<RW::Session>("Session");
     qmlRegisterType<RW::SQL::RemoteWorkstation>();
     qmlRegisterType<RW::SQL::Project>();
+    qmlRegisterType<RW::SQL::ElementConfiguration>();
     qmlRegisterType<RW::Session>();
+
     RW::qmlRegisterMySingleton();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -54,6 +57,7 @@ int main(int argc, char *argv[])
     qDebug() << projectList[1].Projectname();
 
     qDebug() << ret[0].Hostname();
+    qDebug() << ret[0].ElementCfg();
     QList<QObject*>  s;
     for (int i = 0; i < ret.count(); i++)
     {

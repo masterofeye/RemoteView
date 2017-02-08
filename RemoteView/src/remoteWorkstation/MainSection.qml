@@ -2,13 +2,13 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
 //http://de.slideshare.net/VPlay-Game-Engine/2014-1007qt-dev-days-14-berlinfinalforweb
-
 Item {
     id:mainsection
     width: parent.width
     height:120
     property string identifier
     property int state
+    property var featurelist
     Rectangle
     {
         id:test
@@ -17,6 +17,10 @@ Item {
         anchors.fill: parent
         color: "#444444"
 
+        Component.onCompleted:
+        {
+            console.log(model.modelData.ElementCfgQml[0])
+        }
         GridLayout
         {
             columns: 4
@@ -51,7 +55,7 @@ Item {
                     var comp = Qt.createComponent("FeatureList.qml");
                     if(comp.status == Component.Ready)
                     {
-                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : 6})
+                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : 6, "modeldata":model.modelData.ElementCfgQml})
                         //console.log(model.modelData.features.length)
                     }
                 }

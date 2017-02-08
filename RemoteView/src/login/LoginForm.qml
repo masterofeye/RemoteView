@@ -2,12 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import Rw.SessionManager 1.0
-//import rw.sessionmanager 1.0
-//https://jryannel.wordpress.com/2010/02/22/designing-a-login-view/
-//https://doc.qt.io/archives/qt-5.5/enginio-qml-users-example.html
-//http://portal.bluejack.binus.ac.id/tutorials/qtapplicationusingqmlandcwithmysqldatabase
 
-//UserRole
 Item {
     id: root
 
@@ -17,7 +12,7 @@ Item {
         textUsername.text = ""
         //prevent the user to see the arrow message after he starts the screen again
         err.visible = false;
-        popup.close();
+        loginPopup.close();
         username.focus = true
     }
 
@@ -141,7 +136,9 @@ Item {
                             console.log(SessionManager.IsAdminRole());
                             console.log("IstCaretaker:");
                             console.log(SessionManager.IsCaretakerRole());
+                            loginAndSettingsButton.text = "Settings"
                             root.resetLoginForm();
+
                         }
                         else
                         {

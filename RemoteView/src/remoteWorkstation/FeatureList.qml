@@ -27,7 +27,7 @@ Item {
        //Component.onCompleted: console.log(elementCount)
 
         Repeater{
-            model: elementCount
+            model: modeldata
             Rectangle{
                 color: "#585858"
                 border.color: "black"
