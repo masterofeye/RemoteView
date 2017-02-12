@@ -107,7 +107,6 @@ ApplicationWindow {
 
                     win.show();
                 }
-
             }
         }
 

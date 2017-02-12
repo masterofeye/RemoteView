@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 		m_logger = spdlog::create<spdlog::sinks::MySqlSink>("sql");
 	m_Repository = new RW::SQL::Repository(RW::SourceType::SQL, m_logger);
 
+    QList<RW::SQL::LogEntry> logs;
 	QList<RW::SQL::RemoteWorkstation> ret;
     QList<RW::SQL::Project> projectList;
     m_Repository->GetAllRemoteWorkstation(ret);
@@ -54,10 +55,7 @@ int main(int argc, char *argv[])
     QVariant var;
     var.setValue(projectList[0]);
     RW::SQL::Project s2 = var.value<RW::SQL::Project>();
-    qDebug() << projectList[1].Projectname();
 
-    qDebug() << ret[0].Hostname();
-    qDebug() << ret[0].ElementCfg();
     QList<QObject*>  s;
     for (int i = 0; i < ret.count(); i++)
     {
@@ -69,10 +67,19 @@ int main(int argc, char *argv[])
     {
         projectListStar.append(&projectList[i]);
     }
+
+    m_Repository->GetAllLogEntry(logs);
+    QList<QObject*> logsList;
+    for (int i = 0; i < logs.count(); i++)
+    {
+        logsList.append(&logs[i]);
+    }
+
     //qDebug() << projectListStar[0]->property("Projectname");
     QQmlContext *ctxt =  engine.rootContext();
     ctxt->setContextProperty("RemoteWorkstations", QVariant::fromValue(s));
     ctxt->setContextProperty("Projects", QVariant::fromValue(projectListStar));
+    ctxt->setContextProperty("Logs", QVariant::fromValue(logsList));
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

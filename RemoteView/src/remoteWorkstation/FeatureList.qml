@@ -5,15 +5,16 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
 Item {
+    id: test
     property int elementCount: 7
-    property variant modeldata : ({})
+    property variant modeldatas : ({})
+    property var filterArray
     readonly property int minWidthIconSize : 32
     readonly property int minHeightIconSize : 32
 
     readonly property int maxWidthFeatureSize : 40
     readonly property int maxHeightFeatureSize : 40
 
-    id: test
     GridLayout{
         //property alias element: paremt.elementCount
         //rows: 2
@@ -27,7 +28,7 @@ Item {
        //Component.onCompleted: console.log(elementCount)
 
         Repeater{
-            model: modeldata
+            model: elementCount
             Rectangle{
                 color: "#585858"
                 border.color: "black"
@@ -63,7 +64,7 @@ Item {
 
                     ToolTip {
                                 id: toolTip
-                                text: "ToolTip"
+                                text: modeldatas[index].ToolTip
                                 visible: mouseArea.pressed
                             }
                     MouseArea {
@@ -72,7 +73,6 @@ Item {
                     }
                 }
             }
-       }
-
+        }
     }
 }

@@ -17,10 +17,6 @@ Item {
         anchors.fill: parent
         color: "#444444"
 
-        Component.onCompleted:
-        {
-            console.log(model.modelData.ElementCfgQml[0])
-        }
         GridLayout
         {
             columns: 4
@@ -51,12 +47,13 @@ Item {
                 Layout.column: 1
                 width: 120
                 height: 80
+                color: "transparent"
                 Component.onCompleted: {
                     var comp = Qt.createComponent("FeatureList.qml");
                     if(comp.status == Component.Ready)
                     {
-                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : 6, "modeldata":model.modelData.ElementCfgQml})
-                        //console.log(model.modelData.features.length)
+                       console.log("elemen");
+                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : model.modelData.ElementCfgQml.length, "modeldatas":model.modelData.ElementCfgQml})
                     }
                 }
             }

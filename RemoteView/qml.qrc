@@ -30,5 +30,10 @@
         <file>src/remoteWorkstation/StatusBar.qml</file>
         <file>src/remoteWorkstation/WorkstationIdentifier.qml</file>
         <file>src/settings/Settings.qml</file>
+        <file>Resourcen/177.png</file>
+        <file>Resourcen/no_no_touch.png</file>
+        <file>Resourcen/yes_no_touch.png</file>
+        <file>Resourcen/yes.png</file>
+        <file>Resourcen/no.png</file>
     </qresource>
 </RCC>
