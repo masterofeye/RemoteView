@@ -20,7 +20,7 @@ HEADERS += \
     Session.h \
     Sessionmanager.h
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../RemoteUtil/RemoteDataConnectLibrary/Lib/ -lRemoteDataConnectLibrary
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../RemoteUtil/RemoteDataConnectLibrary/Lib/ -lRemoteDataConnectLibraryd
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../RemoteUtil/RemoteDataConnectLibrary/Lib/ -lRemoteDataConnectLibraryd
 else:unix: LIBS += -L$$PWD/../../RemoteUtil/RemoteDataConnectLibrary/Lib/ -lRemoteDataConnectLibrary
 
@@ -32,5 +32,4 @@ DISTFILES += \
     src/detailed/FeatureIcon.qml \
     src/detailed/FeatureList.qml \
     src/detailed/MainSection.qml \
-    src/detailed/WorkstationIdentifier.qml \
-    src/login/LoginForm.qml
+    src/detailed/WorkstationIdentifier.qml

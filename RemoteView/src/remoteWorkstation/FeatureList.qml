@@ -5,15 +5,36 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
 Item {
-    id: test
-    property int elementCount: 7
-    property variant modeldatas : ({})
-    property var filterArray
+    id: root
+    property int elementCount: 0
+    property variant filteredModel
+    property variant model : ({})
+
     readonly property int minWidthIconSize : 32
     readonly property int minHeightIconSize : 32
-
     readonly property int maxWidthFeatureSize : 40
     readonly property int maxHeightFeatureSize : 40
+
+    function filterElementConfiguration()
+    {
+        var tmp = model
+        var copy = []
+        var j = 0;
+        for (var i = 0; i < tmp.length; ++i)
+        {
+            console.log(tmp[i].Name)
+            console.log(tmp[i].IsFeature)
+            if(tmp[i].IsFeature)
+            {
+                copy[j] = tmp[i];
+                j++;
+            }
+        }
+        filteredModel = copy;
+        elementCount = filteredModel.length;
+    }
+
+    Component.onCompleted: filterElementConfiguration()
 
     GridLayout{
         //property alias element: paremt.elementCount
@@ -25,10 +46,8 @@ Item {
         rowSpacing: 0
         columnSpacing: 0
 
-       //Component.onCompleted: console.log(elementCount)
-
         Repeater{
-            model: elementCount
+            model: filteredModel
             Rectangle{
                 color: "#585858"
                 border.color: "black"
@@ -38,9 +57,8 @@ Item {
 
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.maximumWidth: test.maxWidthFeatureSize
-                Layout.minimumWidth: test.maxHeightFeatureSize
-
+                Layout.maximumWidth: root.maxWidthFeatureSize
+                Layout.minimumWidth: root.maxHeightFeatureSize
 
                 LinearGradient {
                     anchors.fill: parent
@@ -58,15 +76,23 @@ Item {
                     id : tester
                     Image {
                         anchors.fill: parent
-                        source: "../../Resourcen/bug.png"
+                        source: mapStringToPicture(filteredModel[index].Name)
+                    }
 
+                    function mapStringToPicture(PicName){
+                        switch(PicName)
+                        {
+                             case "Name":
+                                 return "../../Resourcen/technology-23.png"
+                                 break;
+                        }
                     }
 
                     ToolTip {
-                                id: toolTip
-                                text: modeldatas[index].ToolTip
-                                visible: mouseArea.pressed
-                            }
+                        id: toolTip
+                        text: filteredModel[index].ToolTip
+                        visible: mouseArea.pressed
+                    }
                     MouseArea {
                         id: mouseArea
                         anchors.fill: parent

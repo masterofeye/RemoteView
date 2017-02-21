@@ -25,7 +25,6 @@ Item {
                 parent.color = "#333333";
             }
             onClicked: {
-                console.log(model.modelData.ElementCfgQml.length)
                 stackView.push(Qt.resolvedUrl("../detail/DetailView.qml"),{"elementCfg":model.modelData.ElementCfgQml})
             }
 

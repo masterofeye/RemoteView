@@ -50,10 +50,9 @@ Item {
                 color: "transparent"
                 Component.onCompleted: {
                     var comp = Qt.createComponent("FeatureList.qml");
-                    if(comp.status == Component.Ready)
+                    if(comp.status === Component.Ready)
                     {
-                       console.log("elemen");
-                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : model.modelData.ElementCfgQml.length, "modeldatas":model.modelData.ElementCfgQml})
+                       var obj = comp.createObject(this,{"anchors.fill": this, "elementCount" : model.modelData.ElementCfgQml.length, "model":model.modelData.ElementCfgQml})
                     }
                 }
             }

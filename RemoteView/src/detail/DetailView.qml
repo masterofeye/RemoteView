@@ -11,10 +11,7 @@ Item {
         height: root.height
         color: "transparent"
         radius: 5
-        Component.onCompleted:
-        {
-           console.log(elementCfg.length)
-        }
+
         ColumnLayout{
             anchors.fill: parent
             GridLayout{
