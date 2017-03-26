@@ -84,7 +84,9 @@ Item {
             }
         }
     }
-    Component{id: elementCfgButton
+
+    Component
+    {id: elementCfgButton
         Item{
             width:128
             height:72
@@ -101,14 +103,15 @@ Item {
                         color: "white"
                         font.bold: true
                     }
-                    Loader { sourceComponent: button }
+                    Loader { sourceComponent: switchButton }
                 }
             }
 
         }
     }
+
     Component{
-        id:button
+        id:switchButton
         Item
         {
             width: 128
@@ -129,6 +132,13 @@ Item {
                 color: "red"
             }
             MouseArea {
+                id: button
+                objectName: "button"
+                signal newMessage()
+                onNewMessage:
+                {
+                }
+
                 anchors.fill: root
                 onClicked: {
                     if(mouse.button & Qt.RightButton) {
@@ -153,26 +163,26 @@ Item {
                 }
             }
             Menu {
-                    id: contextmenu
-                    x: 20
-                    y: 20
-                    modal: true
+                id: contextmenu
+                x: 20
+                y: 20
+                modal: true
 
-                    MenuItem {
-                        text: "Compare"
-                        height: 20
-                    }
-                    MenuItem {
-                        text: "Send..."
-                        height: 20
-                    }
-                    MenuItem {
-                        text: "Edit..."
-                    }
-                    MenuItem {
-                        text: "Delete"
-                    }
+                MenuItem {
+                    text: "Compare"
+                    height: 20
                 }
+                MenuItem {
+                    text: "Send..."
+                    height: 20
+                }
+                MenuItem {
+                    text: "Edit..."
+                }
+                MenuItem {
+                    text: "Delete"
+                }
+            }
         }
     }
 

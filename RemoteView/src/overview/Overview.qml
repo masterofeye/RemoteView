@@ -2,12 +2,12 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 
 Item {
+    objectName: "Item1"
     width: parent.width
     height: parent.width
     property var projects
     property var remoteworkstations
     id: root
-
     ListView {
         model: root.projects
         anchors.fill: parent

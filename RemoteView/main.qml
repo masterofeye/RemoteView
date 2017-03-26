@@ -3,12 +3,11 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Styles 1.4
 import Rw.SessionManager 1.0
+import com.mycompany.messaging 1.1
+//import com.mycompany.controller 1.0
 import './src/remoteWorkstation'
 import "./src/overview"
 import "./src/login"
-
-
-
 
 ApplicationWindow {
     visible: true
@@ -19,26 +18,49 @@ ApplicationWindow {
     minimumHeight: 720
     id: appWindow
 
+    Message{
+        id :test
+        identifier:"test"
+
+    }
+
+
     Rectangle {
+        id: background
         color: "#212126"
         anchors.fill: parent
+        objectName: "Rectangle0"
+        signal completed(Message Msg)
+        Connections
+        {
+
+        }
+
+        Component.onCompleted:
+        {
+            background.completed.connect(Controller.onNewMessage)
+            //console.log(test.identifier);
+            //Controller.onNewMessage(test);
+            completed(test)
+        }
     }
 
     header: BorderImage {
+        objectName: "BorderImage0"
         border.bottom: 8
         source: "../../Resourcen/toolbar.png"
         width: parent.width
         height: 100
         Rectangle {
             id: backButton
+            height: 60
             width: opacity ? 60 : 0
             anchors.left: parent.left
             anchors.leftMargin: 20
-            opacity: stackView.depth > 1 ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            height: 60
+            opacity: stackView.depth > 1 ? 1 : 0
             radius: 4
+            antialiasing: true
             color: backmouse.pressed ? "#222" : "transparent"
             Behavior on opacity { NumberAnimation{} }
             Image {
@@ -139,6 +161,7 @@ ApplicationWindow {
         }
     }
     ListModel {
+        objectName: "ListModel0"
         id: pageModel
         ListElement {
             title: "Daimler"
@@ -148,6 +171,7 @@ ApplicationWindow {
     }
 
     StackView {
+        objectName: "StackView0"
         id: stackView
         anchors.fill: parent
         // Implements back key navigation
@@ -158,12 +182,15 @@ ApplicationWindow {
                          }
 
         initialItem: Item {
+            objectName: "Item1"
             width: parent.width
             height: parent.height
             ListView {
+                objectName: "ListView2"
                 model: pageModel
                 anchors.fill: parent
                 delegate: AndroidDelegate {
+                    objectName: "AndroidDelegate3"
                     text: title
                     onClicked: stackView.push(Qt.resolvedUrl(page),{"projects" : Projects, "remoteworkstations" : RemoteWorkstations})
                 }

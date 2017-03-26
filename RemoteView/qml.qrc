@@ -34,5 +34,8 @@
         <file>Resourcen/yes_no_touch.png</file>
         <file>Resourcen/yes.png</file>
         <file>Resourcen/no.png</file>
+        <file>Resourcen/Complete.rdp</file>
+        <file>Resourcen/DualScreen.rdp</file>
+        <file>Resourcen/SingleScreen.rdp</file>
     </qresource>
 </RCC>
