@@ -1,43 +1,46 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
 #include <qqmlcontext.h>
-#include <qqml.h>
-#include <QtQuick/qquickitem.h>
-#include <QtQuick/qquickview.h>
-
-#include "Controller.h"
-#include "RemoteDataConnectLibrary.h"
-#include "RemoteCommunicationLibrary.h"
-#include "Sessionmanager.h"
-#include "Session.h"
+#include <RemoteDataConnectLibrary.h>
+#include <RemoteCommunicationLibrary.h>
+#include <qdebug.h>
+#include "C++/controller.h"
+#include <QMessageBox>
 
 int main(int argc, char *argv[])
 {
-    RW::SQL::Register::RegisterRWMetaTypes();
-
-    qmlRegisterType<RW::COM::Message>("com.mycompany.messaging", 1, 1, "Message");
-    qmlRegisterType<Controller>("com.mycompany.controller", 1, 0, "Controller");
-    qmlRegisterType<RW::Session>();
-
-    RW::qmlRegisterMySingleton();
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
+
     QQmlApplicationEngine engine;
 
-    //qDebug() << projectListStar[0]->property("Projectname");
-    QQmlContext *ctxt =  engine.rootContext();
-    Controller* c = new Controller();
-    c->SetupLogEntries(ctxt);
-    c->SetupProjects(ctxt);
-    c->SetupRemoteWorkstations(ctxt);
+    qmlRegisterType<RW::SQL::Project>("de.schleissheimer.project", 1, 0, "Project");
+    qmlRegisterType<RW::SQL::User>("de.schleissheimer.user", 1, 0, "User");
+    qRegisterMetaType<RW::SQL::User*>("User*");
+    qRegisterMetaType<RW::WorkstationState>("WorkstationState");
+    qRegisterMetaType<RW::SQL::Project*>("Project*");
+    qRegisterMetaType<RW::SQL::PermanentLoginReason*>("PermanentLoginReason*");
+    qRegisterMetaType<RW::UserRole>("UserRole");
+    qRegisterMetaType<RW::WorkstationKind>("WorkstationKind");
+    qRegisterMetaType<RW::SQL::WorkstationType*>("WorkstationType*");
+    qRegisterMetaType<RW::SQL::WorkstationSetting*>("WorkstationSetting*");
+    qmlRegisterType<RW::SQL::Workstation>("de.schleissheimer.workstation", 1, 0, "Workstation");
 
-    ctxt->setContextProperty("Controller", QVariant::fromValue(c));
+    qmlRegisterType<Controller>("de.schleissheimer.controller", 1, 0, "Controller");
+    //qmlRegisterInterface<RW::WorkstationState>("WorkstationState");
+    qRegisterMetaType<RW::WorkstationState>();
+    qmlRegisterUncreatableMetaObject(RW::staticMetaObject,"de.schleissheimer.rw",1, 0,"RW","Error: only enums");
+    QQmlContext *context =  engine.rootContext();
+
+    Controller c(context);
+    //TODO Fehlerbehandlung
+    c.CreateListOfRemoteWorkstationTypes();
+    c.CreateListOfSoftwareProjects();
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-
+    if (engine.rootObjects().isEmpty())
+        return -1;
 
     return app.exec();
 }
