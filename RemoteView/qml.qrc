@@ -33,5 +33,6 @@
         <file>Resourcen/USBIconNegative.png</file>
         <file>Resourcen/PowerIconNegative.png</file>
         <file>Resourcen/PowerIconPositive.png</file>
+        <file>Qml/Sites/BackendOverview.qml</file>
     </qresource>
 </RCC>

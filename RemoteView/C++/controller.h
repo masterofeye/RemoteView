@@ -57,6 +57,7 @@ public:
     Q_INVOKABLE QVariant GetFlashEntry(QVariant Workstation,QVariant SoftwareProject);
     Q_INVOKABLE QVariant CreateListOfSoftwareProjectsByProject(QVariant Project);
     Q_INVOKABLE QVariant CreateListOfRemoteWorkstationsByProject(QString ProjectName);
+    Q_INVOKABLE QVariant CreateListOfBackendWorkstations();
 
     Q_INVOKABLE bool FlushDNSCache();
     Q_INVOKABLE bool StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostname);

@@ -140,6 +140,31 @@ QVariant Controller::CreateListOfRemoteWorkstationsByProject(QString ProjectName
 
 }
 
+QVariant Controller::CreateListOfBackendWorkstations()
+{
+    if(m_Context == nullptr)
+        return false;
+
+    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
+    if(m_WorkstationList != nullptr)
+        delete m_WorkstationList;
+
+    m_WorkstationList = new QList<RW::SQL::Workstation>();
+
+    if(!m_Repository->GetAllWorkstation(*m_WorkstationList))
+        return false;
+
+    QList<QObject*>  s;
+    for (int i = 0; i < m_WorkstationList->count(); i++)
+    {
+        if(m_WorkstationList->at(i).TypeOfWorkstation()->Type() == RW::WorkstationKind::BackendPC)
+            s.append(&(*m_WorkstationList)[i]);
+    }
+    m_Context->setContextProperty("BackendWorkstation", QVariant::fromValue(s));
+    return QVariant::fromValue(s);
+
+}
+
 bool Controller::CreateListOfSoftwareProjects()
 {
     if(m_Context == nullptr)
