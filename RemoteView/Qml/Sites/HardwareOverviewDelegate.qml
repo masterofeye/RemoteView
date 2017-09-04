@@ -82,6 +82,7 @@ Item {
                     //anchors.rightMargin: 25
                     Layout.row: 1
                     Layout.column: 3
+                    workstation: mainsection.workstation
                 }
 
                 StatusBar

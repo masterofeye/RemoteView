@@ -2,10 +2,10 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import de.schleissheimer.rw 1.0
-
+import QtQuick.Controls.Styles 1.4
 Item {
     id: root
-
+    property var workstation
     Rectangle
     {
         id: managarerContainer
@@ -15,7 +15,7 @@ Item {
 
         function shouldStart()
         {
-            var val = mainsection.workstation.State.valueOf()
+            var val = workstation.State.valueOf()
             if(val === RW.OFF)
                 return true;
             else
@@ -24,7 +24,7 @@ Item {
 
         function isVisible()
         {
-            var val = mainsection.workstation.State.valueOf()
+            var val = workstation.State.valueOf()
             if(val === RW.FREE)
                 return true;
             else
@@ -32,13 +32,15 @@ Item {
         }
 
         ColumnLayout{
+            id: layout
             anchors.fill: parent
+            property var isProgVisible:false
             RemoteButton{
                 id: button1
                 buttonText: qsTr("Connect")
                 visible: managarerContainer.isVisible()
                 width: managarerContainer.width
-                onClick: Controller.StartRemoteDesktop(Controller.Default,mainsection.workstation.hostname);
+                onClick: Controller.StartRemoteDesktop(Controller.Default,workstation.hostname);
             }
 
             RemoteButton{
@@ -52,10 +54,19 @@ Item {
             RemoteButton{
                 id: button3
                 buttonText: qsTr("Start")
-                onClick: popup.close()
+                onClick:
+                {
+                    button3.visible = false
+                    control.visible = true;
+                }
                 visible: managarerContainer.shouldStart()
                 height: 80
                 width: managarerContainer.width
+
+            }
+            BusyIndicator {
+                anchors.horizontalCenter: parent.horizontalCenter
+                running: image.status === Image.Loading
             }
         }
 

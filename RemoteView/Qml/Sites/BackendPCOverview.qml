@@ -10,10 +10,9 @@ Item {
     ListView {
         model:workstations
         anchors.fill: parent
-        delegate: HardwareOverviewDelegate {
-            hostname: model.modelData.hostname
-            project: root.project
-            workstation : model.modelData
+        delegate: BackendOverview {
+            text: model.modelData.hostname
+            workstation: model.modelData
         }
 
     }
