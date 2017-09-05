@@ -4,6 +4,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QProcess>
+#include <QNetworkAccessManager>
 
 Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
     m_Context(Context)
@@ -290,10 +291,11 @@ bool Controller::StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostna
     return rdpProcess->startDetached(programm,argList,qApp->applicationDirPath());
 }
 
-/*bool Controller::WakeUpPC(QString Mac)
+bool Controller::WakeUpPC(QString Mac)
 {
-    QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=";
-    
+    QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=D0:17:C2:97:04:1F";
+    QNetworkAccessManager qnam;
+    qnam.get(QNetworkRequest(url));
 
-}*/
+}
 

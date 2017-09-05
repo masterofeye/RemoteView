@@ -8,6 +8,7 @@ Item {
     property var project
     property variant workstations : Controller.CreateListOfBackendWorkstations()
     ListView {
+        cacheBuffer: 2000
         model:workstations
         anchors.fill: parent
         delegate: BackendOverview {

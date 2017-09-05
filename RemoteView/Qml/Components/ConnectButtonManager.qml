@@ -57,7 +57,7 @@ Item {
                 onClick:
                 {
                     button3.visible = false
-                    control.visible = true;
+                    busyindicator.visible = true;
                 }
                 visible: managarerContainer.shouldStart()
                 height: 80
@@ -65,8 +65,10 @@ Item {
 
             }
             BusyIndicator {
+                id:busyindicator
                 anchors.horizontalCenter: parent.horizontalCenter
                 running: image.status === Image.Loading
+                visible: false
             }
         }
 

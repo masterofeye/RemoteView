@@ -61,6 +61,7 @@ public:
 
     Q_INVOKABLE bool FlushDNSCache();
     Q_INVOKABLE bool StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostname);
+    Q_INVOKABLE bool WakeUpPC(QString Mac);
 
 
 signals:
