@@ -4,6 +4,7 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     C++/controller.cpp
+    C++/NetworkWrapper.cpp \
     C++/MessageWindow.cpp
 
 RESOURCES += qml.qrc
@@ -53,4 +54,5 @@ DISTFILES +=
 
 HEADERS += \
     C++/controller.h
+    C++/NetworkWrapper.h \
     C++/MessageWindow.h
