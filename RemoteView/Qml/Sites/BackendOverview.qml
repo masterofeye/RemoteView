@@ -8,6 +8,7 @@ Item {
     height: 88
     property alias workstation: buttonContainer.workstation
     property alias text: textitem.text
+    property alias processindicator: buttonContainer.process
     signal clicked
 
     /*HIGHLIGHT EFFECT*/
@@ -46,7 +47,6 @@ Item {
         id: buttonContainer
         width: 120
         height: 80
-
     }
 
     /*END NAVIGATION ICON*/

@@ -3,7 +3,7 @@ QT += qml quick widgets
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    C++/controller.cpp
+    C++/controller.cpp \
     C++/NetworkWrapper.cpp \
     C++/MessageWindow.cpp
 
@@ -53,6 +53,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    C++/controller.h
+    C++/controller.h \
     C++/NetworkWrapper.h \
     C++/MessageWindow.h

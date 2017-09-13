@@ -19,6 +19,9 @@ namespace RW{
     }
 }
 
+class MessageWindow;
+enum class Information;
+
 class Controller : public QObject
 {
     Q_OBJECT
@@ -30,6 +33,9 @@ private:
     QList<RW::SQL::Project> *m_ProjectList = nullptr;
     QList<RW::SQL::Workstation> *m_WorkstationList = nullptr;
     QList<RW::SQL::SoftwareProject> *m_SoftwareProjectList = nullptr;
+
+    /*Nur Temporär hier weil ich nicht weiß wohin*/
+    MessageWindow* m_MessageWindow = nullptr;
 
 public:
     enum class StartMethode
@@ -66,6 +72,7 @@ public:
 
 signals:
     void newMessage(RW::COM::Message Msg);
+    void popMessage(quint64 Msecs, QString Message, Information Index);
 public slots:
     void onNewMessage(QVariant Msg)
     {

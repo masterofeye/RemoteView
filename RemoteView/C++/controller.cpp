@@ -1,10 +1,15 @@
 #include "Controller.h"
 #include "RemoteDataConnectLibrary.h"
+#include "NetworkWrapper.h"
+#include "MessageWindow.h"
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QProcess>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QThread>
+
 
 Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
     m_Context(Context)
@@ -16,10 +21,16 @@ Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
     m_Repository = new RW::SQL::Repository(RW::SourceType::SQL, m_logger);
 
     m_Context->setContextProperty("Controller", QVariant::fromValue(this));
+
+    m_MessageWindow = new MessageWindow();
+    connect(this, &Controller::popMessage, m_MessageWindow, &MessageWindow::Ballon);
 }
 
 Controller::~Controller()
 {
+    if(m_MessageWindow!=nullptr)
+        delete m_MessageWindow;
+
     if(m_ProjectList != nullptr)
         delete m_ProjectList;
     if(m_WorkstationList != nullptr)
@@ -293,9 +304,9 @@ bool Controller::StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostna
 
 bool Controller::WakeUpPC(QString Mac)
 {
+    emit popMessage(5000, "Das ist meine Nachricht", Information::INFO);
     QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=D0:17:C2:97:04:1F";
-    QNetworkAccessManager qnam;
-    qnam.get(QNetworkRequest(url));
-
+    RW::CORE::NetworkWrapper wrapper;
+    return true;
 }
 

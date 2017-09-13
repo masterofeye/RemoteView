@@ -6,6 +6,7 @@ Item {
     id: root
 
     property var project
+    property bool isProcess: false
     property variant workstations : Controller.CreateListOfBackendWorkstations()
     ListView {
         cacheBuffer: 2000
@@ -14,6 +15,7 @@ Item {
         delegate: BackendOverview {
             text: model.modelData.hostname
             workstation: model.modelData
+            processindicator: root.isProcess
         }
 
     }

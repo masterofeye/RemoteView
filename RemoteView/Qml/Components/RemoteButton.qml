@@ -6,11 +6,13 @@ Item {
     property alias buttonText: remoteButton.text
     width: 200
     height: 40
-    signal click
+    signal click 
+    signal pressAndHold
     Button {
         id:remoteButton
         height: root.height
         width: root.width
+
         background: Rectangle
         {
             id: bgconnectButton
@@ -39,6 +41,27 @@ Item {
         Keys.onPressed: {
             if (event.key === Qt.Key_Enter)
                 popup.close();
+        }
+
+        signal pressAndHold()
+
+        Timer {
+            id: longPressTimer
+
+            interval: 800 //your press-and-hold interval here
+            repeat: false
+            running: false
+
+            onTriggered: {
+                root.pressAndHold()
+            }
+        }
+        onPressedChanged: {
+            if ( pressed ) {
+                longPressTimer.running = true;
+            } else {
+                longPressTimer.running = false;
+            }
         }
 
     }
