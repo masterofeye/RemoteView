@@ -1,17 +1,16 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <qqmlcontext.h>
 #include <RemoteDataConnectLibrary.h>
 #include <RemoteCommunicationLibrary.h>
 #include <qdebug.h>
 #include "C++/controller.h"
-#include <QMessageBox>
-#include "C++/Sessionmanager.h"
+#include "C++/MessageWindow.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
 
     QQmlApplicationEngine engine;
@@ -31,6 +30,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Controller>("de.schleissheimer.controller", 1, 0, "Controller");
     //qmlRegisterInterface<RW::WorkstationState>("WorkstationState");
     qRegisterMetaType<RW::WorkstationState>();
+    qRegisterMetaType<Information>();
     qmlRegisterUncreatableMetaObject(RW::staticMetaObject,"de.schleissheimer.rw",1, 0,"RW","Error: only enums");
 
     RW::qmlRegisterSessionManager();
