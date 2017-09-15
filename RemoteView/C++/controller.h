@@ -10,6 +10,8 @@ class QQmlApplicationEngine;
 class QQmlContext;
 
 namespace RW{
+    class Sessionmanager;
+
     namespace SQL
     {
         class Repository;

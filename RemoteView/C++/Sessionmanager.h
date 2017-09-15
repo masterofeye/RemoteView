@@ -15,6 +15,8 @@ namespace RW
         bool m_Active;
         Session* m_ActiveSession;
     public:
+
+
         // delete copy and move constructors and assign operators
         SessionManager(SessionManager const&) = delete;             // Copy construct
         SessionManager(SessionManager&&) = delete;                  // Move construct
@@ -31,7 +33,7 @@ namespace RW
         RW::Session* ActiveSession(){return m_ActiveSession;}
 
     public:
-        SessionManager();
+        SessionManager(QObject* Parent=nullptr);
         ~SessionManager();
 
     private:
@@ -42,7 +44,7 @@ namespace RW
     public slots:
     };
 
-    static QObject *getMySingleton(QQmlEngine *engine, QJSEngine *scriptEngine)
+    static QObject *SessionManagerProvide(QQmlEngine *engine, QJSEngine *scriptEngine)
     {
         Q_UNUSED(engine)
         Q_UNUSED(scriptEngine)
@@ -50,9 +52,9 @@ namespace RW
         return new SessionManager();
     }
 
-    static void qmlRegisterMySingleton()
+    static void qmlRegisterSessionManager()
     {
-        qmlRegisterSingletonType<SessionManager>("Rw.SessionManager", 1, 0, "SessionManager", &getMySingleton);
+        qmlRegisterSingletonType<RW::SessionManager>("de.schleissheimer.sessionmanager", 1, 0, "SessionManager", SessionManagerProvide);
     }
 
 }

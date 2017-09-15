@@ -35,5 +35,6 @@
         <file>Resourcen/PowerIconPositive.png</file>
         <file>Qml/Sites/BackendOverview.qml</file>
         <file>Resourcen/NormalButton.png</file>
+        <file>Qml/Sites/Settings.qml</file>
     </qresource>
 </RCC>

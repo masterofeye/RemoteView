@@ -1,11 +1,10 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.0
-//import Rw.SessionManager 1.0
+import de.schleissheimer.sessionmanager 1.0
 
 Item {
     id: root
-
     function resetLoginForm()
     {
         textPassword.text = ""
@@ -107,12 +106,12 @@ Item {
                 Layout.leftMargin: 20
                 spacing: 10
                 Button {
-                    id:loginButton
+                    id:loginBut
                     text: qsTr("Login")
                     Keys.onPressed:{
                         if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
                         {
-                            loginButton.doLogin();
+                            loginBut.doLogin();
                             event.accepted = true
                         }
                     }
@@ -126,7 +125,7 @@ Item {
                         if(textPassword.text.trim()==="" || textUsername.text.trim()==="")
                         {
                             err.visible = true;
-                            err.text = "Username or password must be filled"
+                            err.text = "Username or password must be filled in."
                         }
                         else if(SessionManager.AuthenticateUser(textUsername.text,textPassword.text))
                         {
@@ -136,7 +135,7 @@ Item {
                             console.log(SessionManager.IsAdminRole());
                             console.log("IstCaretaker:");
                             console.log(SessionManager.IsCaretakerRole());
-                            loginAndSettingsButton.text = "Settings"
+                            loginButton.loggedIn = true
                             root.resetLoginForm();
 
                         }
@@ -153,13 +152,13 @@ Item {
                         implicitWidth: 75
                         implicitHeight: 35
                         radius: 10
-                        color: loginButton.down ? "#33b5e5" : "#212126"
+                        color: loginBut.down ? "#33b5e5" : "#212126"
                     }
                     contentItem: Text {
-                        text: loginButton.text
-                        font: loginButton.font
+                        text: loginBut.text
+                        font: loginBut.font
                         opacity: enabled ? 1.0 : 0.1
-                        color: loginButton.down ? "#FFFFFF" : "#E6E6E6"
+                        color: loginBut.down ? "#FFFFFF" : "#E6E6E6"
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight

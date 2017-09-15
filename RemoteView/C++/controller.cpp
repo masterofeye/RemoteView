@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "RemoteDataConnectLibrary.h"
+#include "Sessionmanager.h"
 
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
@@ -295,7 +296,7 @@ bool Controller::WakeUpPC(QString Mac)
 {
     QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=D0:17:C2:97:04:1F";
     QNetworkAccessManager qnam;
-    qnam.get(QNetworkRequest(url));
-
+    qnam.get(QNetworkRequest(wolURL));
+    return true;
 }
 

@@ -8,6 +8,13 @@ Button
     font.pointSize: 20;
     anchors.right: parent.right
     anchors.verticalCenter: titel.verticalCenter
+    property bool loggedIn: false
+    onLoggedInChanged:{
+        if(loggedIn)
+            loginButton.text = "Settings"
+        else
+            loginButton.text = "Login"
+    }
 
     background: Rectangle
     {
@@ -29,14 +36,17 @@ Button
     LoginWrapper {
         id: loginPopup
     }
+
+
+
     onClicked:{
-        //if(!SessionManager.IsActive())
-        //{
+        if(!loggedIn)
+        {
             loginPopup.open()
-        /*}
+        }
         else
         {
-            var component = Qt.createComponent("src/settings/Settings.qml");
+            var component = Qt.createComponent(Qt.resolvedUrl("../Sites/Settings.qml"));
             if (component.status == Component.Ready) {
                 var win = component.createObject(appWindow);
             }
@@ -47,6 +57,6 @@ Button
             }
 
             win.show();
-        }*/
+        }
     }
 }

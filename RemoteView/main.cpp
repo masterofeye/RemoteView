@@ -6,6 +6,7 @@
 #include <qdebug.h>
 #include "C++/controller.h"
 #include <QMessageBox>
+#include "C++/Sessionmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +32,9 @@ int main(int argc, char *argv[])
     //qmlRegisterInterface<RW::WorkstationState>("WorkstationState");
     qRegisterMetaType<RW::WorkstationState>();
     qmlRegisterUncreatableMetaObject(RW::staticMetaObject,"de.schleissheimer.rw",1, 0,"RW","Error: only enums");
+
+    RW::qmlRegisterSessionManager();
+
     QQmlContext *context =  engine.rootContext();
 
     Controller c(context);

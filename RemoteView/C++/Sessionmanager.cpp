@@ -3,7 +3,7 @@
 
 namespace RW
 {
-    SessionManager::SessionManager(): m_ActiveSession(new Session(this)),
+    SessionManager::SessionManager(QObject* Parent): QObject(Parent), m_ActiveSession(new Session(this)),
         m_Active(false)
     {
 

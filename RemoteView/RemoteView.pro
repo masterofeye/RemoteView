@@ -3,7 +3,10 @@ QT += qml quick widgets
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    C++/controller.cpp
+    C++/controller.cpp \
+    C++/Session.cpp \
+    C++/Sessionmanager.cpp \
+    C++/Ldapwrapper.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,7 +44,9 @@ DEPENDPATH += $$PWD/../../RemoteUtil/RemoteDataConnectLibrary/Include
 DEPENDPATH += $$PWD/../../RemoteUtil/RemoteCommunicationLibrary/Include
 DEPENDPATH += $$PWD/../../RemoteUtil/RemoteThirdParty
 
-
+win32 {
+ LIBS += -lWldap32
+}
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -51,4 +56,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 HEADERS += \
-    C++/controller.h
+    C++/controller.h \
+    C++/Session.h \
+    C++/Sessionmanager.h \
+    C++/Ldapwrapper.h

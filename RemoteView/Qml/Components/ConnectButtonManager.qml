@@ -25,7 +25,7 @@ Item {
         function isVisible()
         {
             var val = workstation.State.valueOf()
-            if(val === RW.FREE)
+            if(val === RW.FREE || val === RW.ON)
                 return true;
             else
                 return false;
@@ -67,7 +67,7 @@ Item {
             BusyIndicator {
                 id:busyindicator
                 anchors.horizontalCenter: parent.horizontalCenter
-                running: image.status === Image.Loading
+                running: true
                 visible: false
             }
         }

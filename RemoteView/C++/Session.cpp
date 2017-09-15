@@ -1,5 +1,7 @@
 #include "Session.h"
 #include "RemoteDataConnectLibrary.h"
+#include "Ldapwrapper.h"
+
 namespace RW
 {
     Session::Session(QObject *parent) : QObject(parent),
@@ -40,28 +42,18 @@ namespace RW
 
     bool Session::AuthenticateUser(QString Username, QString Password)
     {
-        //Todo sehr unschön ... wir wissen nicht ob die Source hier stimmt und auch wird kein Logger erzeugt
-        RW::SQL::Repository repro(SourceType::SQL,this);
-        RW::SQL::User user;
-        if(repro.GetUserByName(Username,user))
+        LDAPWrapper ldap;
+        if(ldap.InitializeSession())
         {
-            qDebug()<< "Einen User gefunden. Name " << user.UserName() << " Password: " << user.Password();
-
-            if(user.Password().compare(Password) == 0)
+            if(ldap.ConnectToServer())
             {
-                *m_User = user;
-                return true;
+                if(ldap.BindWithCredentials(Username, Password))
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            qDebug("Es wurde kein passender User gefunden");
-            return false;
         }
         return false;
+
     }
 }
