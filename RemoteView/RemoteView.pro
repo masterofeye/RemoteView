@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     C++/Session.cpp \
     C++/NetworkWrapper.cpp \
     C++/Sessionmanager.cpp \
-    C++/MessageWindow.cpp
+    C++/MessageWindow.cpp \
+    C++/Ldapwrapper.cpp
     C++/Ldapwrapper.cpp
 
 RESOURCES += qml.qrc
@@ -62,5 +63,6 @@ HEADERS += \
     C++/Session.h \
     C++/NetworkWrapper.h \
     C++/Sessionmanager.h \
-    C++/MessageWindow.h
+    C++/MessageWindow.h \
+    C++/Ldapwrapper.h
     C++/Ldapwrapper.h

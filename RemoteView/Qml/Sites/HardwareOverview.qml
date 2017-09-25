@@ -7,7 +7,7 @@ Item {
     width: parent.width
     height: parent.width
     property var project
-    property variant workstations : Controller.CreateListOfRemoteWorkstationsByProject(project.Projectname)
+    property variant workstations : ControllerInstance.CreateListOfRemoteWorkstationsByProject(project.Projectname)
     ListView {
         model:workstations
         anchors.fill: parent
@@ -16,6 +16,6 @@ Item {
             project: root.project
             workstation : model.modelData
         }
-
     }
+
 }

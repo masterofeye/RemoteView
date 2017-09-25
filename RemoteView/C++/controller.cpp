@@ -21,7 +21,7 @@ Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
 
     m_Repository = new RW::SQL::Repository(RW::SourceType::SQL, m_logger);
 
-    m_Context->setContextProperty("Controller", QVariant::fromValue(this));
+    m_Context->setContextProperty("ControllerInstance", QVariant::fromValue(this));
 
     m_MessageWindow = new MessageWindow();
     connect(this, &Controller::popMessage, m_MessageWindow, &MessageWindow::Ballon);
@@ -287,15 +287,18 @@ bool Controller::StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostna
     QString programm = "mstsc";
     switch(RdpStartMethode)
     {
-        case StartMethode::Default:
+        case StartMethode::DEFAULT:
             argList.append("Default.rdp");
             argList.append("/v:"+Hostname );
         break;
-        case StartMethode::DualScreen:
+        case StartMethode::DUALSCREEN:
             argList.append("DualScreen.rdp");
             argList.append("/v:"+Hostname );
         break;
-        case StartMethode::AllScreen:
+        case StartMethode::ALLSCREEN:
+            argList.append("AllScreen.rdp");
+            argList.append("/v:"+Hostname );
+        case StartMethode::RGSSCREEN:
             argList.append("AllScreen.rdp");
             argList.append("/v:"+Hostname );
         break;
@@ -308,7 +311,6 @@ bool Controller::WakeUpPC(QString Mac)
     emit popMessage(5000, "Das ist meine Nachricht", Information::INFO);
     QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=D0:17:C2:97:04:1F";
     RW::CORE::NetworkWrapper wrapper;
-    qnam.get(QNetworkRequest(url));
     return true;
 }
 

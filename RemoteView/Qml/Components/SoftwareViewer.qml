@@ -44,7 +44,7 @@ Item {
                         fontSizeMode: Text.Fit; minimumPixelSize: 8; font.pixelSize: 72
                         height:calcMaxHeigthOfText()
                         color: "white"
-                        text: Controller.GetFlashEntry(mainsection.workstation,model.modelData)
+                        text: ControllerInstance.GetFlashEntry(mainsection.workstation,model.modelData)
                         elide: Text.ElideRight
                     }
                     /*END SOFTWARE VERSION*/

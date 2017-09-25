@@ -14,6 +14,7 @@ namespace RW
         Q_OBJECT
     private:
         RW::SQL::User* m_User;
+        QList<QObject*> m_UserWorkstation;
     public:
         explicit Session(QObject *parent = 0);
         ~Session(){}
@@ -28,6 +29,10 @@ namespace RW
         Q_INVOKABLE bool IsUserRole();
         Q_INVOKABLE bool IsCaretakerRole();
         Q_INVOKABLE QString UserName();
+        /*!
+        @brief Gibt die Workstation zurück, die eindeutig dem Nutzer zugeordnet ist.
+        */
+         QList<QObject*> UserWorkstation();
     signals:
 
     public slots:

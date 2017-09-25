@@ -6,6 +6,7 @@
 #include <qdebug.h>
 #include "C++/controller.h"
 #include "C++/MessageWindow.h"
+#include "C++/Sessionmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,9 +29,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<RW::SQL::Workstation>("de.schleissheimer.workstation", 1, 0, "Workstation");
 
     qmlRegisterType<Controller>("de.schleissheimer.controller", 1, 0, "Controller");
-    //qmlRegisterInterface<RW::WorkstationState>("WorkstationState");
     qRegisterMetaType<RW::WorkstationState>();
     qRegisterMetaType<Information>();
+
     qmlRegisterUncreatableMetaObject(RW::staticMetaObject,"de.schleissheimer.rw",1, 0,"RW","Error: only enums");
 
     RW::qmlRegisterSessionManager();

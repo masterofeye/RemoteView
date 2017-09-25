@@ -42,9 +42,10 @@ private:
 public:
     enum class StartMethode
     {
-        Default,
-        DualScreen,
-        AllScreen
+        DEFAULT,
+        DUALSCREEN,
+        ALLSCREEN,
+        RGSSCREEN
     };
     Q_ENUMS(StartMethode)
 
@@ -85,5 +86,5 @@ public slots:
         qDebug() << Msg;
     }
 };
-
+Q_DECLARE_METATYPE(Controller::StartMethode)
 #endif // CONTROLLER_H

@@ -69,7 +69,7 @@ Item {
                     id:softwareViewerContainer
                     width: 200
                     height: 80
-                    softwareProjects:  Controller.CreateListOfSoftwareProjectsByProject(mainsection.project)
+                    softwareProjects:  ControllerInstance.CreateListOfSoftwareProjectsByProject(mainsection.project)
                 }
                 /*END SOFTWARE ANZEIGE*/
 

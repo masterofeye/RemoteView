@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import de.schleissheimer.sessionmanager 1.0
 Item {
     width: parent.width
     height: parent.width   
@@ -7,10 +8,9 @@ Item {
 
     property var project
     property bool isProcess: false
-    property variant workstations : Controller.CreateListOfBackendWorkstations()
     ListView {
         cacheBuffer: 2000
-        model:workstations
+        model:getBackendWorkstation()
         anchors.fill: parent
         delegate: BackendOverview {
             text: model.modelData.hostname
@@ -18,5 +18,13 @@ Item {
             processindicator: root.isProcess
         }
 
+    }
+
+    function getBackendWorkstation ()
+    {
+        var hostname = SessionManager.UserWorkstation()
+        if(hostname.length === 0 )
+           return ControllerInstance.CreateListOfBackendWorkstations()
+        return hostname;
     }
 }

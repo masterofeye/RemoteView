@@ -28,6 +28,9 @@ namespace RW
         Q_INVOKABLE bool IsCaretakerRole();
         Q_INVOKABLE bool AuthenticateUser(QString Username, QString Password);
         Q_INVOKABLE bool IsActive(){return m_Active;}
+        Q_INVOKABLE QList<QObject*> UserWorkstation();
+
+
 
         bool IsActiveSession(){return m_Active;}
         RW::Session* ActiveSession(){return m_ActiveSession;}

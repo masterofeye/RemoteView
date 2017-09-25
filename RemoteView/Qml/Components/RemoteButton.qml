@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.1
 
 Item {
     id: root
@@ -8,6 +9,7 @@ Item {
     height: 40
     signal click 
     signal pressAndHold
+
     Button {
         id:remoteButton
         height: root.height
@@ -17,7 +19,7 @@ Item {
         {
             id: bgconnectButton
             width: root.width
-            color: remoteButton.down ? "#33b5e5" : "#19191D"
+            color: longPressArea.pressed ? "#33b5e5" : "#19191D"
             radius: 5
             border.width: 2
             border.color: "white"
@@ -27,7 +29,7 @@ Item {
             text: remoteButton.text
             font: remoteButton.font
             opacity: enabled ? 1.0 : 0.1
-            color: remoteButton.down ? "#FFFFFF" : "#E6E6E6"
+            color: longPressArea.pressed ? "#FFFFFF" : "#E6E6E6"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight
@@ -37,33 +39,29 @@ Item {
              remoteButton.clicked.connect(click)
         }
 
+
         font.pointSize: 15
         Keys.onPressed: {
             if (event.key === Qt.Key_Enter)
                 popup.close();
         }
 
-        signal pressAndHold()
-
-        Timer {
-            id: longPressTimer
-
-            interval: 800 //your press-and-hold interval here
-            repeat: false
-            running: false
-
-            onTriggered: {
+        MouseArea{
+            id:longPressArea
+            acceptedButtons: Qt.PreferredSize
+            anchors.fill: parent
+            propagateComposedEvents: true
+            onPressAndHold: {
                 root.pressAndHold()
+                remoteButton.focus=false
             }
-        }
-        onPressedChanged: {
-            if ( pressed ) {
-                longPressTimer.running = true;
-            } else {
-                longPressTimer.running = false;
+
+            Component.onCompleted: {
+                 longPressArea.clicked.connect(click)
             }
         }
 
     }
+
 }
 

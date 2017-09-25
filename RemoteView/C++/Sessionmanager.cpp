@@ -34,4 +34,9 @@ namespace RW
         return m_Active = m_ActiveSession->AuthenticateUser(Username,Password);
     }
 
+     QList<QObject*> SessionManager::UserWorkstation()
+    {
+        return m_ActiveSession->UserWorkstation();
+    }
+
 }
