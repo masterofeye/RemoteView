@@ -32,7 +32,19 @@ Item {
             MouseArea {
                 id: mouse
                 anchors.fill: parent
-                onClicked:contentViewer.push(Qt.resolvedUrl("../Sites/"+modelData+"Overview.qml"))
+                onClicked:
+                {
+                    console.log(contentViewer.find(function(item) {
+                        console.log(item.objectName )
+                        return item.objectName  === "backendpcoverview";
+                    }))
+                    var comp = Qt.createComponent(Qt.resolvedUrl("../Sites/"+modelData+"Overview.qml"))
+                     if (comp.status === Component.Ready) {
+                        contentViewer.push(comp,{destroyOnPop:false, properties:{objectName:modelData}})
+                     }
+
+
+                }
             }
             Rectangle {
                 id: t1

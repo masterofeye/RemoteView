@@ -13,7 +13,8 @@
 
 
 Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
-    m_Context(Context)
+    m_Context(Context),
+    m_NetWrapper(new RW::CORE::NetworkWrapper(this))
 {
     m_logger = spdlog::get("sql");
     if (m_logger == nullptr)
@@ -25,6 +26,9 @@ Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
 
     m_MessageWindow = new MessageWindow();
     connect(this, &Controller::popMessage, m_MessageWindow, &MessageWindow::Ballon);
+
+    connect(m_NetWrapper, &RW::CORE::NetworkWrapper::Error , this, &Controller::onWOLError);
+    connect(m_NetWrapper, &RW::CORE::NetworkWrapper::SuccessfulWakeUp , this, &Controller::onWOLSuccess);
 }
 
 Controller::~Controller()
@@ -306,11 +310,20 @@ bool Controller::StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostna
     return rdpProcess->startDetached(programm,argList,qApp->applicationDirPath());
 }
 
-bool Controller::WakeUpPC(QString Mac)
+bool Controller::WakeUpPC(QString Mac, QString Hostname)
 {
-    emit popMessage(5000, "Das ist meine Nachricht", Information::INFO);
-    QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=D0:17:C2:97:04:1F";
-    RW::CORE::NetworkWrapper wrapper;
+    m_NetWrapper->WakeUpPC(Mac,Hostname);
     return true;
 }
 
+void Controller::onWOLError(QString Hostname)
+{
+    emit popMessage(5000,"The PC wasn't wake up successfuly.", Information::ALERT);
+    emit wakeUpFeedback(false, Hostname);
+}
+
+void Controller::onWOLSuccess(QString Hostname)
+{
+    emit popMessage(5000,"The PC was wake up successfuly.", Information::INFO);
+    emit wakeUpFeedback(true, Hostname);
+}

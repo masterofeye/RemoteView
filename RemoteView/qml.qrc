@@ -39,5 +39,7 @@
         <file>Qml/Sites/Settings.qml</file>
         <file>Resourcen/Stop.png</file>
         <file>Resourcen/Warning.png</file>
+        <file>Resourcen/applicationicon.png</file>
+        <file>Resourcen/applicationicon.ico</file>
     </qresource>
 </RCC>

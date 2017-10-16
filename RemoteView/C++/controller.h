@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QQuickItem>
 
+
 class QQmlApplicationEngine;
 class QQmlContext;
 
@@ -18,6 +19,10 @@ namespace RW{
         class Project;
         class Workstation;
         class SoftwareProject;
+    }
+
+    namespace CORE {
+    class NetworkWrapper;
     }
 }
 
@@ -38,6 +43,8 @@ private:
 
     /*Nur Temporär hier weil ich nicht weiß wohin*/
     MessageWindow* m_MessageWindow = nullptr;
+
+    RW::CORE::NetworkWrapper* m_NetWrapper = nullptr;
 
 public:
     enum class StartMethode
@@ -70,13 +77,19 @@ public:
 
     Q_INVOKABLE bool FlushDNSCache();
     Q_INVOKABLE bool StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostname);
-    Q_INVOKABLE bool WakeUpPC(QString Mac);
+    Q_INVOKABLE bool WakeUpPC(QString Mac, QString Hostname);
 
 
 signals:
     void newMessage(RW::COM::Message Msg);
     void popMessage(quint64 Msecs, QString Message, Information Index);
+    void wakeUpFeedback(bool Ret, QString Hostname);
+private slots:
+    void onWOLError(QString Hostname);
+    void onWOLSuccess(QString Hostname);
+
 public slots:
+
     void onNewMessage(QVariant Msg)
     {
         //Msg.canConvert<>()

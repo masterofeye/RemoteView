@@ -66,3 +66,5 @@ HEADERS += \
     C++/MessageWindow.h \
     C++/Ldapwrapper.h
     C++/Ldapwrapper.h
+
+RC_ICONS = Resourcen/applicationicon.ico
