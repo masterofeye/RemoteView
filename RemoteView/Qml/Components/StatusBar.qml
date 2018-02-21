@@ -32,14 +32,14 @@ Item {
             font.bold: true
             font.pointSize: 22
             anchors.centerIn: parent
-            property var adasjkdasl: model.modelData.State
+            property var adasjkdasl: model.State
             Component.onCompleted: {
 
-                statusLabel.text = model.modelData.State.toString()
-                switch(model.modelData.State.valueOf())
+                statusLabel.text = model.State.toString()
+                switch(model.State.valueOf())
                 {
                 case RW.ON:
-                    statusLabel.text =  model.modelData.CurrentUser.UserName
+                    statusLabel.text =  model.UserProperty.UserName
                     statusColor.color = "darkred"
                     break;
                 case RW.OFF:

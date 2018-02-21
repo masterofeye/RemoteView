@@ -1,15 +1,21 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import de.schleissheimer.projectModel 1.0
 Item {
+    ProjectModel {
+        id: myModel
+
+    }
+
     property string projectname
     width: parent.width
     height: parent.width
     ListView {
-        model:Projects
+        model:myModel
         anchors.fill: parent
         delegate: OverviewDelegate {
-            text: model.modelData.Projectname
-            onClicked: contentViewer.push(Qt.resolvedUrl("HardwareOverview.qml"),{"project" : model.modelData})
+            text: Name
+            onClicked: contentViewer.push(Qt.resolvedUrl("HardwareOverview.qml"),{"project" : Name})
 
         }
     }

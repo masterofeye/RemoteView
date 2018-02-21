@@ -8,7 +8,31 @@ SOURCES += main.cpp \
     C++/NetworkWrapper.cpp \
     C++/Sessionmanager.cpp \
     C++/MessageWindow.cpp \
-    C++/Ldapwrapper.cpp
+    C++/Ldapwrapper.cpp \
+    C++/controller.cpp \
+    C++/Ldapwrapper.cpp \
+    C++/MessageWindow.cpp \
+    C++/NetworkWrapper.cpp \
+    C++/Session.cpp \
+    C++/Sessionmanager.cpp \
+    main.cpp \
+    C++/controller.cpp \
+    C++/Ldapwrapper.cpp \
+    C++/MessageWindow.cpp \
+    C++/NetworkWrapper.cpp \
+    C++/Session.cpp \
+    C++/Sessionmanager.cpp \
+    main.cpp \
+    C++/controller.cpp \
+    C++/Ldapwrapper.cpp \
+    C++/MessageWindow.cpp \
+    C++/NetworkWrapper.cpp \
+    C++/Session.cpp \
+    C++/Sessionmanager.cpp \
+    main.cpp \
+    Models/entitymodel.cpp \
+    Models/projectmodel.cpp \
+    Models/workstationmodel.cpp
     C++/Ldapwrapper.cpp
 
 RESOURCES += qml.qrc
@@ -64,7 +88,28 @@ HEADERS += \
     C++/NetworkWrapper.h \
     C++/Sessionmanager.h \
     C++/MessageWindow.h \
-    C++/Ldapwrapper.h
+    C++/Ldapwrapper.h \
+    C++/controller.h \
+    C++/Ldapwrapper.h \
+    C++/MessageWindow.h \
+    C++/NetworkWrapper.h \
+    C++/Session.h \
+    C++/Sessionmanager.h \
+    C++/controller.h \
+    C++/Ldapwrapper.h \
+    C++/MessageWindow.h \
+    C++/NetworkWrapper.h \
+    C++/Session.h \
+    C++/Sessionmanager.h \
+    C++/controller.h \
+    C++/Ldapwrapper.h \
+    C++/MessageWindow.h \
+    C++/NetworkWrapper.h \
+    C++/Session.h \
+    C++/Sessionmanager.h \
+    Models/entitymodel.h \
+    Models/projectmodel.h \
+    Models/workstationmodel.h
     C++/Ldapwrapper.h
 
 RC_ICONS = Resourcen/applicationicon.ico

@@ -16,11 +16,11 @@ Controller::Controller(QQmlContext* Context,QObject *parent) : QObject(parent),
     m_Context(Context),
     m_NetWrapper(new RW::CORE::NetworkWrapper(this))
 {
-    m_logger = spdlog::get("sql");
+    m_logger = spdlog::get("PERS");
     if (m_logger == nullptr)
-        m_logger = spdlog::create<spdlog::sinks::MySqlSink>("sql");
+        m_logger = spdlog::create<spdlog::sinks::MySqlSink>("PERS");
 
-    m_Repository = new RW::SQL::Repository(RW::SourceType::SQL, m_logger);
+    //m_Repository = new RW::PERS::Repository(RW::SourceType::SQL);
 
     m_Context->setContextProperty("ControllerInstance", QVariant::fromValue(this));
 
@@ -40,8 +40,8 @@ Controller::~Controller()
         delete m_ProjectList;
     if(m_WorkstationList != nullptr)
         delete m_WorkstationList;
-    if(m_Repository != nullptr)
-        delete m_Repository;
+//    if(m_Repository != nullptr)
+//        delete m_Repository;
 }
 QQuickItem* Controller::FindItemByName(QList<QObject*> nodes, const QString& name)
 {
@@ -94,184 +94,190 @@ bool Controller::CreateListOfRemoteWorkstationTypes()
 
 bool Controller::SetupLogEntries()
 {
-    if(m_Context == nullptr)
-        return false;
-    QList<RW::SQL::LogEntry> logs;
-    if(!m_Repository->GetAllLogEntry(logs))
-        return false;
+//    if(m_Context == nullptr)
+//        return false;
+//    QList<RW::PERS::LogEntry> logs;
 
-    QList<QObject*>  s;
-    for (int i = 0; i < logs.count(); i++)
-    {
-        s.append(&logs[i]);
-    }
+//    RW::PERS::Repository repro(RW::PERS::StrategyType);
 
-    m_Context->setContextProperty("Logs", QVariant::fromValue(s));
+//    logs.append((PERS::LogEntry*) repro.SoleMatching(PERS::Criteria::equal(RW::PERS::LoggingMapper::ComputerName, , &PERS::Workstation::staticMetaObject)));
+
+//    if(!m_Repository->GetAllLogEntry(logs))
+//        return false;
+
+//    QList<QObject*>  s;
+//    for (int i = 0; i < logs.count(); i++)
+//    {
+//        s.append(&logs[i]);
+//    }
+
+//    m_Context->setContextProperty("Logs", QVariant::fromValue(s));
     return true;
 }
 bool Controller::SetupRemoteWorkstations()
 {
-    if(m_Context == nullptr)
-        return false;
+//    if(m_Context == nullptr)
+//        return false;
 
-    QList<RW::SQL::Workstation> ret;
-    if(!m_Repository->GetAllWorkstation(ret))
-        return false;
+//    QList<RW::PERS::Workstation> ret;
+//    if(!m_Repository->GetAllWorkstation(ret))
+//        return false;
 
-    QList<QObject*>  s;
-    for (int i = 0; i < ret.count(); i++)
-    {
-        RW::SQL::WorkstationType* type = ret[i].TypeOfWorkstation();
-        if(type->Type() == RW::WorkstationKind::RemoteWorkstation)
-            s.append(&(ret)[i]);
-    }
-    m_Context->setContextProperty("RemoteWorkstations", QVariant::fromValue(s));
+//    QList<QObject*>  s;
+//    for (int i = 0; i < ret.count(); i++)
+//    {
+//        RW::PERS::WorkstationType* type = ret[i].TypeOfWorkstation();
+//        if(type->Type() == RW::WorkstationKind::RemoteWorkstation)
+//            s.append(&(ret)[i]);
+//    }
+//    m_Context->setContextProperty("RemoteWorkstations", QVariant::fromValue(s));
     return true;
 }
 
 QVariant Controller::CreateListOfRemoteWorkstationsByProject(QString ProjectName)
 {
-    if(ProjectName.isEmpty())
-        return false;
+//    if(ProjectName.isEmpty())
+//        return false;
 
-    if(m_Context == nullptr)
-        return false;
+//    if(m_Context == nullptr)
+//        return false;
 
-    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
-    if(m_WorkstationList != nullptr)
-        delete m_WorkstationList;
+//    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
+//    if(m_WorkstationList != nullptr)
+//        delete m_WorkstationList;
 
-    m_WorkstationList = new QList<RW::SQL::Workstation>();
+//    RW::PERS::Repository repro(RW::PERS::StrategyType::SQL);
 
-    if(!m_Repository->GetAllWorkstation(*m_WorkstationList))
-        return false;
+//    RW::PERS::Project currentProject = repro.SoleMatching(RW::PERS::Criteria::equal(RW::PERS::ProjectMapper::Name, ProjectName, &RW::PERS::Project::staticMetaObject));
 
-    QList<QObject*>  s;
-    for (int i = 0; i < m_WorkstationList->count(); i++)
-    {
-        if(m_WorkstationList->at(i).AssignedProject()->Projectname() == ProjectName)
-            s.append(&(*m_WorkstationList)[i]);
-    }
-    m_Context->setContextProperty("RemoteWorkstation", QVariant::fromValue(s));
-    return QVariant::fromValue(s);
+//    m_WorkstationList = new QList<RW::PERS::Workstation*>(repro.Matching(RW::PERS::Criteria::equal(RW::PERS::WorkstationMapper::Project, currentProject.ID(), &RW::PERS::Workstation::staticMetaObject)));
+
+////    QList<QObject*>  s;
+////    for (int i = 0; i < m_WorkstationList->count(); i++)
+////    {
+////        if(m_WorkstationList->at(i).AssignedProject()->Projectname() == ProjectName)
+////            s.append(&(*m_WorkstationList)[i]);
+////    }
+//    m_Context->setContextProperty("RemoteWorkstation", QVariant::fromValue(m_WorkstationList));
+return QVariant();
 
 }
 
 QVariant Controller::CreateListOfBackendWorkstations()
 {
-    if(m_Context == nullptr)
-        return false;
+//    if(m_Context == nullptr)
+//        return false;
 
-    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
-    if(m_WorkstationList != nullptr)
-        delete m_WorkstationList;
+//    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
+//    if(m_WorkstationList != nullptr)
+//        delete m_WorkstationList;
 
-    m_WorkstationList = new QList<RW::SQL::Workstation>();
+//    m_WorkstationList = new QList<RW::PERS::Workstation>();
 
-    if(!m_Repository->GetAllWorkstation(*m_WorkstationList))
-        return false;
+//    if(!m_Repository->GetAllWorkstation(*m_WorkstationList))
+//        return false;
 
-    QList<QObject*>  s;
-    for (int i = 0; i < m_WorkstationList->count(); i++)
-    {
-        if(m_WorkstationList->at(i).TypeOfWorkstation()->Type() == RW::WorkstationKind::BackendPC)
-            s.append(&(*m_WorkstationList)[i]);
-    }
-    m_Context->setContextProperty("BackendWorkstation", QVariant::fromValue(s));
-    return QVariant::fromValue(s);
+//    QList<QObject*>  s;
+//    for (int i = 0; i < m_WorkstationList->count(); i++)
+//    {
+//        if(m_WorkstationList->at(i).TypeOfWorkstation()->Type() == RW::WorkstationKind::BackendPC)
+//            s.append(&(*m_WorkstationList)[i]);
+//    }
+//    m_Context->setContextProperty("BackendWorkstation", QVariant::fromValue(s));
+ return QVariant();
 
 }
 
 bool Controller::CreateListOfSoftwareProjects()
 {
-    if(m_Context == nullptr)
-        return false;
+//    if(m_Context == nullptr)
+//        return false;
 
-    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
-    if(m_ProjectList != nullptr)
-        delete m_ProjectList;
+//    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
+//    if(m_ProjectList != nullptr)
+//        delete m_ProjectList;
 
-    m_ProjectList = new QList<RW::SQL::Project> ();
+//    m_ProjectList = new QList<RW::PERS::Project> ();
 
-    if(!m_Repository->GetAllProject(*m_ProjectList))
-        return false;
+//    if(!m_Repository->GetAllProject(*m_ProjectList))
+//        return false;
 
-    QList<QObject*>  s;
-    for (int i = 0; i < m_ProjectList->count(); i++)
-    {
-        s.append(&(*m_ProjectList)[i]);
-    }
-    m_Context->setContextProperty("Projects", QVariant::fromValue(s));
+//    QList<QObject*>  s;
+//    for (int i = 0; i < m_ProjectList->count(); i++)
+//    {
+//        s.append(&(*m_ProjectList)[i]);
+//    }
+//    m_Context->setContextProperty("Projects", QVariant::fromValue(s));
     return true;
 }
 
 QVariant Controller::GetFlashEntry(QVariant Workstation,QVariant SoftwareProject)
 {
-    RW::SQL::Workstation* workstation = Workstation.value<RW::SQL::Workstation*>();
-    RW::SQL::SoftwareProject* softwareProject = SoftwareProject.value<RW::SQL::SoftwareProject*>();
+//    RW::PERS::Workstation* workstation = Workstation.value<RW::PERS::Workstation*>();
+//    RW::PERS::SoftwareProject* softwareProject = SoftwareProject.value<RW::PERS::SoftwareProject*>();
 
-    QList<RW::SQL::FlashHistory> flash;
+//    QList<RW::PERS::FlashHistory> flash;
 
-    if(!m_Repository->GetLastestFlasHistoryEntryByWorkstationIDAndSoftwareProjectID(workstation->ID().toInt(),
-                                                                                    softwareProject->ID().toInt(),
-                                                                                    flash))
-        return false;
+//    if(!m_Repository->GetLastestFlasHistoryEntryByWorkstationIDAndSoftwareProjectID(workstation->ID().toInt(),
+//                                                                                    softwareProject->ID().toInt(),
+//                                                                                    flash))
+//        return false;
 
-    if(flash.count() > 0)
-    {
-        QString version = "";
-        QString major = flash.first().Major().toString();
-        QString minor = flash.first().Minor().toString();
-        QString patchlevel = flash.first().PatchLevel().toString();
-        QString buildnumber = flash.first().Buildnumber().toString();
-        if(!major.isEmpty())
-        {
-            version += major + ".";
-        }
+//    if(flash.count() > 0)
+//    {
+//        QString version = "";
+//        QString major = flash.first().Major().toString();
+//        QString minor = flash.first().Minor().toString();
+//        QString patchlevel = flash.first().PatchLevel().toString();
+//        QString buildnumber = flash.first().Buildnumber().toString();
+//        if(!major.isEmpty())
+//        {
+//            version += major + ".";
+//        }
 
-        if(!minor.isEmpty())
-        {
-            version += minor + ".";
-        }
+//        if(!minor.isEmpty())
+//        {
+//            version += minor + ".";
+//        }
 
-        if(!patchlevel.isEmpty())
-        {
-            version += patchlevel + ".";
-        }
+//        if(!patchlevel.isEmpty())
+//        {
+//            version += patchlevel + ".";
+//        }
 
-        if(!buildnumber.isEmpty())
-        {
-            version += buildnumber;
-        }
-        return version;
-    }
-    else
+//        if(!buildnumber.isEmpty())
+//        {
+//            version += buildnumber;
+//        }
+//        return version;
+//    }
+//    else
         return "NAN";
 }
 
 QVariant Controller::CreateListOfSoftwareProjectsByProject(QVariant Project)
 {
-    if(m_Context == nullptr)
-        return QVariant();
-    RW::SQL::Project* project = Project.value<RW::SQL::Project*>();
-    if(project == nullptr)
-        return QVariant();
+//    if(m_Context == nullptr)
+//        return QVariant();
+//    RW::PERS::Project* project = Project.value<RW::PERS::Project*>();
+//    if(project == nullptr)
+//        return QVariant();
 
-    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
-    if(m_SoftwareProjectList != nullptr)
-        delete m_SoftwareProjectList;
+//    //Wenn schon eine Liste erstellt wurde sollte diese hier zunächst gelöscht werden
+//    if(m_SoftwareProjectList != nullptr)
+//        delete m_SoftwareProjectList;
 
-    m_SoftwareProjectList = new QList<RW::SQL::SoftwareProject> ();
-    if(!m_Repository->GetSoftwareProjectByProjectId(project->ID().toInt(),*m_SoftwareProjectList))
-        return QVariant();
+//    m_SoftwareProjectList = new QList<RW::PERS::SoftwareProject> ();
+//    if(!m_Repository->GetSoftwareProjectByProjectId(project->ID().toInt(),*m_SoftwareProjectList))
+//        return QVariant();
 
-    QList<QObject*>  s;
-    for (int i = 0; i < m_SoftwareProjectList->count(); i++)
-    {
-        s.append(&(*m_SoftwareProjectList)[i]);
-    }
-    //m_Context->setContextProperty("SoftwareProjects", QVariant::fromValue(s));
-    return QVariant::fromValue(s);
+//    QList<QObject*>  s;
+//    for (int i = 0; i < m_SoftwareProjectList->count(); i++)
+//    {
+//        s.append(&(*m_SoftwareProjectList)[i]);
+//    }
+//    //m_Context->setContextProperty("SoftwareProjects", QVariant::fromValue(s));
+    return QVariant();
 }
 
 bool  Controller::FlushDNSCache(){

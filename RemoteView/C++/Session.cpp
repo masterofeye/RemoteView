@@ -5,7 +5,7 @@
 namespace RW
 {
     Session::Session(QObject *parent) : QObject(parent),
-        m_User(new RW::SQL::User(this))
+        m_User(new RW::PERS::User(this))
     {
 
     }
@@ -44,10 +44,9 @@ namespace RW
         }
         m_UserWorkstation.clear();
 
-        RW::SQL::Repository repro(SourceType::SQL,this);
-        RW::SQL::Workstation *workstation = new RW::SQL::Workstation();
-        if(repro.GetWorkstationByID(m_User->UserWorkstation(),*workstation))
-            m_UserWorkstation.append(workstation);
+        RW::PERS::Repository repro(PERS::StrategyType::SQL);
+
+        m_UserWorkstation.append((PERS::Workstation*) repro.SoleMatching(PERS::Criteria::equal(PERS::WorkstationMapper::WorkstationId, m_User->UserWorkstation(), &PERS::Workstation::staticMetaObject)));
 
         return m_UserWorkstation;
     }
@@ -58,11 +57,9 @@ namespace RW
 
     bool Session::AuthenticateUser(QString Username, QString Password)
     {
-        RW::SQL::Repository repro(SourceType::SQL,this);
-        if(!repro.GetUserByName(Username,*m_User))
-        {
-            return false;
-        }
+        RW::PERS::Repository repro(PERS::StrategyType::SQL);
+
+        m_User =(PERS::User*) repro.SoleMatching(PERS::Criteria::equal(PERS::UserMapper::Username, Username, &PERS::User::staticMetaObject));
 
         LDAPWrapper ldap;
         if(ldap.InitializeSession())

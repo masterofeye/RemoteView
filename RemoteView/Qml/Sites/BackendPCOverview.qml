@@ -13,20 +13,8 @@ Item {
         cacheBuffer: 200
         anchors.fill: parent
         delegate: BackendOverview {
-            text: model.modelData.hostname
-            workstation: model.modelData
+            text: model.hostname
+            workstation: model
         }
-
-        Component.onCompleted:
-            test.model = getBackendWorkstation()
-
-    }
-
-    function getBackendWorkstation ()
-    {
-        var hostname = SessionManager.UserWorkstation()
-        if(hostname.length === 0 )
-           return ControllerInstance.CreateListOfBackendWorkstations()
-        return hostname;
     }
 }

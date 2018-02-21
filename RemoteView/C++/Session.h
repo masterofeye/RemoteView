@@ -5,7 +5,7 @@
 
 namespace RW
 {
-    namespace SQL {
+    namespace PERS {
     class User;
     }
 
@@ -13,7 +13,7 @@ namespace RW
     {
         Q_OBJECT
     private:
-        RW::SQL::User* m_User;
+        RW::PERS::User* m_User;
         QList<QObject*> m_UserWorkstation;
     public:
         explicit Session(QObject *parent = 0);

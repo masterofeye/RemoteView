@@ -7,6 +7,8 @@
 #include "C++/controller.h"
 #include "C++/MessageWindow.h"
 #include "C++/Sessionmanager.h"
+#include "Models/workstationmodel.h"
+#include "Models/projectmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,25 +18,27 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<RW::SQL::Project>("de.schleissheimer.project", 1, 0, "Project");
-    qmlRegisterType<RW::SQL::User>("de.schleissheimer.user", 1, 0, "User");
-    qRegisterMetaType<RW::SQL::User*>("User*");
-    qRegisterMetaType<RW::WorkstationState>("WorkstationState");
-    qRegisterMetaType<RW::SQL::Project*>("Project*");
-    qRegisterMetaType<RW::SQL::PermanentLoginReason*>("PermanentLoginReason*");
-    qRegisterMetaType<RW::UserRole>("UserRole");
-    qRegisterMetaType<RW::WorkstationKind>("WorkstationKind");
-    qRegisterMetaType<RW::SQL::WorkstationType*>("WorkstationType*");
-    qRegisterMetaType<RW::SQL::WorkstationSetting*>("WorkstationSetting*");
-    qmlRegisterType<RW::SQL::Workstation>("de.schleissheimer.workstation", 1, 0, "Workstation");
+//    qmlRegisterType<RW::PERS::Project>("de.schleissheimer.project", 1, 0, "Project");
+//    qmlRegisterType<RW::PERS::User>("de.schleissheimer.user", 1, 0, "User");
+//    qRegisterMetaType<RW::PERS::User*>("User*");
+//    qRegisterMetaType<RW::WorkstationState>("WorkstationState");
+//    qRegisterMetaType<RW::PERS::Project*>("Project*");
+//    qRegisterMetaType<RW::PERS::PermanentLoginReason*>("PermanentLoginReason*");
+//    qRegisterMetaType<RW::UserRole>("UserRole");
+      qRegisterMetaType<RW::WorkstationKind>("WorkstationKind");
+//    qRegisterMetaType<RW::PERS::WorkstationType*>("WorkstationType*");
+//    qRegisterMetaType<RW::PERS::WorkstationSetting*>("WorkstationSetting*");
+//    qmlRegisterType<RW::PERS::Workstation>("de.schleissheimer.workstation", 1, 0, "Workstation");
+//      qRegisterMetaType<RW::WorkstationState>();
 
     qmlRegisterType<Controller>("de.schleissheimer.controller", 1, 0, "Controller");
-    qRegisterMetaType<RW::WorkstationState>();
     qRegisterMetaType<Information>();
-
     qmlRegisterUncreatableMetaObject(RW::staticMetaObject,"de.schleissheimer.rw",1, 0,"RW","Error: only enums");
-
     RW::qmlRegisterSessionManager();
+
+    qmlRegisterType<WorkstationModel>("de.schleissheimer.workstationmodel", 1, 0,"WorkstationModel");
+    qmlRegisterType<ProjectModel>("de.schleissheimer.projectModel", 1, 0,"ProjectModel");
+
 
     QQmlContext *context =  engine.rootContext();
 

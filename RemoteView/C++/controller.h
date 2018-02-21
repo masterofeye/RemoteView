@@ -13,7 +13,7 @@ class QQmlContext;
 namespace RW{
     class Sessionmanager;
 
-    namespace SQL
+    namespace PERS
     {
         class Repository;
         class Project;
@@ -33,13 +33,13 @@ class Controller : public QObject
 {
     Q_OBJECT
 private:
-    RW::SQL::Repository *m_Repository = nullptr;
+    RW::PERS::Repository *m_Repository = nullptr;
     std::shared_ptr<spdlog::logger> m_logger;
     QQmlContext* m_Context = nullptr;
 
-    QList<RW::SQL::Project> *m_ProjectList = nullptr;
-    QList<RW::SQL::Workstation> *m_WorkstationList = nullptr;
-    QList<RW::SQL::SoftwareProject> *m_SoftwareProjectList = nullptr;
+    QList<RW::PERS::Project*> *m_ProjectList = nullptr;
+    QList<RW::PERS::Workstation*> *m_WorkstationList = nullptr;
+    QList<RW::PERS::SoftwareProject*> *m_SoftwareProjectList = nullptr;
 
     /*Nur Temporär hier weil ich nicht weiß wohin*/
     MessageWindow* m_MessageWindow = nullptr;
