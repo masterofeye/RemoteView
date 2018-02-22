@@ -5,7 +5,7 @@ Item {
     WorkstationModel {
         id: myModel
         type:RW.RemoteWorkstation
-        projectName: root.project
+        project: root.project
     }
 
     id: root

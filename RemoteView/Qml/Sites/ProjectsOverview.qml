@@ -15,7 +15,7 @@ Item {
         anchors.fill: parent
         delegate: OverviewDelegate {
             text: Name
-            onClicked: contentViewer.push(Qt.resolvedUrl("HardwareOverview.qml"),{"project" : Name})
+            onClicked: contentViewer.push(Qt.resolvedUrl("HardwareOverview.qml"),{"project" : ProjectObj})
 
         }
     }

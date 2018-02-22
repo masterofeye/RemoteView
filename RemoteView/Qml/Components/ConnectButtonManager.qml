@@ -54,7 +54,7 @@ Item {
                 id: button1
                 buttonText: qsTr("Connect")
                 width: managarerContainer.width
-                onClick: ControllerInstance.StartRemoteDesktop(Controller.Default,workstation.hostname);
+                onClick: ControllerInstance.StartRemoteDesktop(Controller.Default,workstation.Hostname);
                 onPressAndHold: {
                     popup.open()
                 }
@@ -93,7 +93,7 @@ Item {
                              buttonText: qsTr("Default")
                              onClick:
                              {
-                                 ControllerInstance.StartRemoteDesktop(Controller.DEFAULT,workstation.hostname);
+                                 ControllerInstance.StartRemoteDesktop(Controller.DEFAULT,myitem.workstation.Hostname);
                                  popup.close()
                              }
                         }
@@ -102,7 +102,7 @@ Item {
                              width: popup.width -20
                              buttonText: qsTr("DualScreen")
                              onClick:{
-                                 ControllerInstance.StartRemoteDesktop(Controller.DUALSCREEN,workstation.hostname);
+                                 ControllerInstance.StartRemoteDesktop(Controller.DUALSCREEN,myitem.workstation.Hostname);
                                  popup.close()
                              }
                         }
@@ -111,7 +111,7 @@ Item {
                              width: popup.width -20
                              buttonText: qsTr("AllScreen")
                              onClick: {
-                                 ControllerInstance.StartRemoteDesktop(Controller.ALLSCREEN,workstation.hostname);
+                                 ControllerInstance.StartRemoteDesktop(Controller.ALLSCREEN,myitem.workstation.Hostname);
                                  popup.close()
                              }
                         }
