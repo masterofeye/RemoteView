@@ -40,7 +40,7 @@ namespace RW {
         void Process() {
             connect(m_NetAccMan, SIGNAL(finished(QNetworkReply*)), this, SLOT(OnReplyFinished(QNetworkReply*)));
 
-            QString wolURL = "http://pepe.schleissheimer.de/wol.php?mac=" + m_Mac;
+            QString wolURL = "http://intranet.schleissheimer.de/wol.php?mac=" + m_Mac;
             QNetworkRequest request;
             request.setUrl(QUrl(wolURL));
             request.setRawHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0");

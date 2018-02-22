@@ -298,18 +298,18 @@ bool Controller::StartRemoteDesktop(StartMethode RdpStartMethode, QString Hostna
     switch(RdpStartMethode)
     {
         case StartMethode::DEFAULT:
-            argList.append("Default.rdp");
+            argList.append("ConnectionFiles//Default.rdp");
             argList.append("/v:"+Hostname );
         break;
         case StartMethode::DUALSCREEN:
-            argList.append("DualScreen.rdp");
+            argList.append("ConnectionFiles//DualScreen.rdp");
             argList.append("/v:"+Hostname );
         break;
         case StartMethode::ALLSCREEN:
-            argList.append("AllScreen.rdp");
+            argList.append("ConnectionFiles//AllScreen.rdp");
             argList.append("/v:"+Hostname );
         case StartMethode::RGSSCREEN:
-            argList.append("AllScreen.rdp");
+            argList.append("ConnectionFiles//AllScreen.rdp");
             argList.append("/v:"+Hostname );
         break;
     }
