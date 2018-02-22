@@ -40,7 +40,7 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
-    virtual void LoadData() = 0;
+    Q_INVOKABLE virtual void LoadData() const = 0;
 
 protected:
     mutable  std::vector<RW::PERS::Entity*> m_EntityList;

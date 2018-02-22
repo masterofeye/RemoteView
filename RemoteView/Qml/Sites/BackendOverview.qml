@@ -48,6 +48,16 @@ Item {
         height: 80
     }
 
+    StatusBar
+    {
+        id:statusbar
+        anchors.left: textitem.right
+        anchors.leftMargin: 20
+        anchors.verticalCenter: parent.verticalCenter
+        width: 220
+        height: 50
+    }
+
     /*END NAVIGATION ICON*/
 
     /*MOUSEAREA*/

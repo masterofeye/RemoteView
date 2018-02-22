@@ -41,21 +41,20 @@ QModelIndex Entitymodel::parent(const QModelIndex &index) const
 
 int Entitymodel::rowCount(const QModelIndex &parent) const
 {
-    //if (!parent.isValid())
-    //    return 0;
-    qDebug()<< m_EntityList.size();
+    Q_UNUSED(parent);
     return m_EntityList.size();
 }
 
 int Entitymodel::columnCount(const QModelIndex &parent) const
 {
-    qDebug()<< m_Meta->propertyCount();
+    Q_UNUSED(parent);
     return m_Meta->propertyCount();
 }
 
 
 bool Entitymodel::hasChildren(const QModelIndex &parent) const
 {
+
     if(parent.row() < m_EntityList.size())
         return true;
     else
@@ -73,6 +72,7 @@ bool Entitymodel::canFetchMore(const QModelIndex &parent) const
 
 void Entitymodel::fetchMore(const QModelIndex &parent)
 {
+    Q_UNUSED(parent);
 }
 
 QVariant Entitymodel::data(const QModelIndex &index, int role) const
